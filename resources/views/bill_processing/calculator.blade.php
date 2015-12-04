@@ -60,6 +60,7 @@ body { padding-top: 40px; }
 	<fieldset class="col-lg-12 col-md-12">
 		<button type="button" class="btn btn-danger" id="calculate-amounts-btn">Split All Bills</button>
 		<button type="button" class="btn btn-default" id="clear-results-btn">Clear Results</button>
+		<button type="button" class="btn btn-warning" id="save-trans-btn">Save Transaction Detail</button>
 	</fieldset>
 	<div class="input-group col-lg-12" id="results-input-group">
 		<span class="input-group-addon" id="results-input-addon">$</span>
@@ -99,6 +100,7 @@ function splitAndPublish(value, is_fixed, length) {
 		splitValue = splitValue.toFixed(length);
 	}
 	publish(splitValue);
+	writeTransaction();
 }
 
 $('#calculate-amounts-btn').click(function() {
@@ -118,6 +120,30 @@ function clearResults() {
 }
 
 $('#clear-results-btn').click(function() { clearResults(); });
+
+function saveTransactionDetails() {
+	var vzw_amt, gas_amt, water_amt, num_persons,
+		electric_amt, raw_total, price_per;
+
+	$.ajax({
+		url: 'http://',
+		type: 'GET',
+		data: data
+	}).done(function(data) {
+		console.log('xmlhttp complete');
+	});
+
+	var data = {};
+	data.vzw_amt = $('#verizon-bill').val();
+	data.gas_amt = $('#gas-bill').val();
+	data.water_amt = $('#water-bill');
+	data.electric_amt = $('#electric-bill');
+	data.num_people = $('#num-persons').val();
+}
+
+$('#save-trans-btn').click(function() {
+	saveTransactionDetails();
+});
 
 </script>
 @stop
