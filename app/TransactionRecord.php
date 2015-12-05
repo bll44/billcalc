@@ -25,6 +25,8 @@ class TransactionRecord extends Model
 
     public function split()
     {
-        return $this->raw_total / $this->num_people;
+        setlocale(LC_MONETARY, 'en_US');
+        return money_format('%i', $this->raw_total / $this->num_people);
+        // return round($this->raw_total / $this->num_people, 2);
     }
 }

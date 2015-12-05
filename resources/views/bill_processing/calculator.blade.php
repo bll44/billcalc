@@ -25,22 +25,38 @@ body { padding-top: 40px; }
 <div class="row">
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="verizon-bill">Total Verizon Bill</label>
-		<input type="text" name="verizon-bill" id="verizon-bill" class="form-control bill-amount" value="0.00" data-key="verizon">
+		<div class="input-group">
+			<span class="input-group-addon">$</span>
+			{{-- <input type="text" name="verizon-bill" id="verizon-bill" class="form-control bill-amount" placeholder="0.00" data-key="verizon"> --}}
+			<input type="text" name="verizon-bill" id="verizon-bill" class="form-control bill-amount" value="175.83" data-key="verizon">
+		</div>
 		<button type="button" id="verizon-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="verizon-bill">Split Verizon Bill</button>
 	</fieldset>
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="gas-bill">Total Gas Bill</label>
-		<input type="text" name="gas-bill" id="gas-bill" class="form-control bill-amount" value="0.00" data-key="gas">
+		<div class="input-group">
+			<span class="input-group-addon">$</span>
+			{{-- <input type="text" name="gas-bill" id="gas-bill" class="form-control bill-amount" placeholder="0.00" data-key="gas"> --}}
+			<input type="text" name="gas-bill" id="gas-bill" class="form-control bill-amount" value="16.90" data-key="gas">
+		</div>
 		<button type="button" id="gas-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="gas-bill">Split Gas Bill</button>
 	</fieldset>
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="water-bill">Total Water Bill</label>
-		<input type="text" name="water-bill" id="water-bill" class="form-control bill-amount" value="0.00" data-key="water">
+		<div class="input-group">
+			<span class="input-group-addon">$</span>
+			{{-- <input type="text" name="water-bill" id="water-bill" class="form-control bill-amount" placeholder="0.00" data-key="water"> --}}
+			<input type="text" name="water-bill" id="water-bill" class="form-control bill-amount" value="67.84" data-key="water">
+		</div>
 		<button type="button" id="water-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="water-bill">Split Water Bill</button>
 	</fieldset>
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="electric-bill">Total Electric Bill</label>
-		<input type="text" name="electric-bill" id="electric-bill" class="form-control bill-amount" value="0.00" data-key="electric">
+		<div class="input-group">
+			<span class="input-group-addon">$</span>
+			{{-- <input type="text" name="electric-bill" id="electric-bill" class="form-control bill-amount" placeholder="0.00" data-key="electric"> --}}
+			<input type="text" name="electric-bill" id="electric-bill" class="form-control bill-amount" value="110.55" data-key="electric">
+		</div>
 		<button type="button" id="electric-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="electric-bill">Split Electric Bill</button>
 	</fieldset>
 	<fieldset class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
@@ -61,11 +77,11 @@ body { padding-top: 40px; }
 	<fieldset class="col-lg-12 col-md-12">
 		<button type="button" class="btn btn-danger" id="calculate-amounts-btn">Split All Bills</button>
 		<button type="button" class="btn btn-default" id="clear-results-btn">Clear Results</button>
-		<button type="button" class="btn btn-warning" id="save-trans-btn">Save Transaction Detail</button>
+		<button type="button" class="btn btn-warning" id="save-trans-btn">Save Transaction Details</button>
 	</fieldset>
 	<div class="input-group col-lg-12" id="results-input-group">
 		<span class="input-group-addon" id="results-input-addon">$</span>
-		<input id="results-text-bucket" class="form-control" placeholder="0.00">
+		<input id="results-text-bucket" class="form-control" placeholder="0.00" disabled="true">
 	</div>
 </div>
 <!-- /.row -->
@@ -165,6 +181,7 @@ function clearResults() {
 $('#clear-results-btn').click(function() { clearResults(); });
 
 function saveTransactionDetails() {
+	$('#save-trans-btn').html('<i class="fa fa-spin fa-circle-o-notch"></i>');
 	var vzw_amt, gas_amt, water_amt, num_persons,
 		electric_amt, raw_total, price_per;
 
@@ -176,6 +193,8 @@ function saveTransactionDetails() {
 	data.num_people = $('#num-persons').val();
 	var check_value = data.vzw_amt + data.gas_amt + data.water_amt + data.electric_amt;
 
+	// if total bills add up to 0 or less, there was probably an error
+	// and it should not be saved to the database
 	if(check_value <= 0) {
 		alert('Please check the values before attempting to save this transaction. Something seems off.');
 		return false;
@@ -187,8 +206,10 @@ function saveTransactionDetails() {
 		data: data,
 		dataType: 'json',
 		success: function(data) {
-			if(data.status == 200)
+			if(data.status == 200) {
 				console.log('Transaction logged successfully');
+				location.reload();
+			}
 		}
 	});
 }
