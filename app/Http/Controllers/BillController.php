@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use View;
+use App\TransactionRecord;
 
 class BillController extends Controller
 {
@@ -17,7 +19,8 @@ class BillController extends Controller
      */
     public function index()
     {
-        return view('bill_processing.calculator');
+        $trans_history = TransactionRecord::all();
+        return view('bill_processing.calculator', ['transaction_history' => $trans_history]);
     }
 
     /**
@@ -84,5 +87,18 @@ class BillController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function storeTransactionDetails(Request $request)
+    {
+        $tr = new TransactionRecord;
+        $tr->createTransactionRecord([
+            'vzw_amt' => $request->vzw_amt,
+            'gas_amt' => $request->gas_amt,
+            'water_amt' => $request->water_amt,
+            'electric_amt' => $request->electric_amt,
+            'num_people' => $request->num_people
+        ]);
+        return response()->json(['status' => 200]);
     }
 }

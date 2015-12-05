@@ -11,8 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return 'test';
-});
-
 Route::get('/', 'BillController@index');
+Route::get('transaction/store', 'BillController@storeTransactionDetails');

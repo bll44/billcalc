@@ -20,7 +20,6 @@ class CalcHist extends Migration
             $table->decimal('electric_amt', 10, 2);
             $table->integer('num_people');
             $table->decimal('raw_total', 10, 2);
-            $table->decimal('price_per', 10, 2);
             $table->timestamps();
         });
     }

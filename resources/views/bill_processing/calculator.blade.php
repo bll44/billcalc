@@ -16,6 +16,7 @@ body { padding-top: 40px; }
 .border-test { border: 1px solid green; }
 #results-input-addon { font-size: 32pt; }
 #results-input-group { margin-top: 15px; }
+#trans-history-title { color: #00b5ff; margin-top: 20px; }
 </style>
 @stop
 
@@ -24,22 +25,22 @@ body { padding-top: 40px; }
 <div class="row">
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="verizon-bill">Total Verizon Bill</label>
-		<input type="text" name="verizon-bill" id="verizon-bill" class="form-control bill-amount" value="182.57" data-key="verizon">
+		<input type="text" name="verizon-bill" id="verizon-bill" class="form-control bill-amount" value="0.00" data-key="verizon">
 		<button type="button" id="verizon-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="verizon-bill">Split Verizon Bill</button>
 	</fieldset>
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="gas-bill">Total Gas Bill</label>
-		<input type="text" name="gas-bill" id="gas-bill" class="form-control bill-amount" value="14.61" data-key="gas">
+		<input type="text" name="gas-bill" id="gas-bill" class="form-control bill-amount" value="0.00" data-key="gas">
 		<button type="button" id="gas-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="gas-bill">Split Gas Bill</button>
 	</fieldset>
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="water-bill">Total Water Bill</label>
-		<input type="text" name="water-bill" id="water-bill" class="form-control bill-amount" value="90.37" data-key="water">
+		<input type="text" name="water-bill" id="water-bill" class="form-control bill-amount" value="0.00" data-key="water">
 		<button type="button" id="water-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="water-bill">Split Water Bill</button>
 	</fieldset>
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="electric-bill">Total Electric Bill</label>
-		<input type="text" name="electric-bill" id="electric-bill" class="form-control bill-amount" value="99.83" data-key="electric">
+		<input type="text" name="electric-bill" id="electric-bill" class="form-control bill-amount" value="0.00" data-key="electric">
 		<button type="button" id="electric-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="electric-bill">Split Electric Bill</button>
 	</fieldset>
 	<fieldset class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
@@ -66,6 +67,49 @@ body { padding-top: 40px; }
 		<span class="input-group-addon" id="results-input-addon">$</span>
 		<input id="results-text-bucket" class="form-control" placeholder="0.00">
 	</div>
+</div>
+<!-- /.row -->
+
+<!-- Transaction history -->
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<h5 id="trans-history-title"><strong>Transaction History</strong></h5>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="transaction-history-table-container">
+	<table class="table table-hover table-sm">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Verizon</th>
+				<th>Gas</th>
+				<th>Water</th>
+				<th>Electric</th>
+				<th>Split</th>
+				<th>Split amount</th>
+				<th>Raw amount</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $i = 1 ?>
+			@foreach($transaction_history as $trans)
+			<tr>
+				<td><strong>{{ $i }}</strong></td>
+				<td>{{ $trans->vzw_amt }}</td>
+				<td>{{ $trans->gas_amt }}</td>
+				<td>{{ $trans->water_amt }}</td>
+				<td>{{ $trans->electric_amt }}</td>
+				<td>{{ $trans->num_people }} way</td>
+				<td>{{ $trans->split() }}</td>
+				<td>{{ $trans->raw_total }}</td>
+			</tr>
+			<?php $i++ ?>
+			@endforeach
+		</tbody>
+	</table>
+<!-- / Transaction history table -->
+</div>
+<!-- / Transaction history table container -->
+
 </div>
 <!-- /.row -->
 @stop
@@ -100,7 +144,6 @@ function splitAndPublish(value, is_fixed, length) {
 		splitValue = splitValue.toFixed(length);
 	}
 	publish(splitValue);
-	writeTransaction();
 }
 
 $('#calculate-amounts-btn').click(function() {
@@ -125,20 +168,29 @@ function saveTransactionDetails() {
 	var vzw_amt, gas_amt, water_amt, num_persons,
 		electric_amt, raw_total, price_per;
 
-	$.ajax({
-		url: 'http://',
-		type: 'GET',
-		data: data
-	}).done(function(data) {
-		console.log('xmlhttp complete');
-	});
-
 	var data = {};
-	data.vzw_amt = $('#verizon-bill').val();
-	data.gas_amt = $('#gas-bill').val();
-	data.water_amt = $('#water-bill');
-	data.electric_amt = $('#electric-bill');
+	data.vzw_amt = parseFloat($('#verizon-bill').val());
+	data.gas_amt = parseFloat($('#gas-bill').val());
+	data.water_amt = parseFloat($('#water-bill').val());
+	data.electric_amt = parseFloat($('#electric-bill').val());
 	data.num_people = $('#num-persons').val();
+	var check_value = data.vzw_amt + data.gas_amt + data.water_amt + data.electric_amt;
+
+	if(check_value <= 0) {
+		alert('Please check the values before attempting to save this transaction. Something seems off.');
+		return false;
+	}
+	
+	$.ajax({
+		url: '{{ URL::to('transaction/store') }}',
+		type: 'GET',
+		data: data,
+		dataType: 'json',
+		success: function(data) {
+			if(data.status == 200)
+				console.log('Transaction logged successfully');
+		}
+	});
 }
 
 $('#save-trans-btn').click(function() {
