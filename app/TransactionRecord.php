@@ -27,6 +27,5 @@ class TransactionRecord extends Model
     {
         setlocale(LC_MONETARY, 'en_US');
         return money_format('%i', $this->raw_total / $this->num_people);
-        // return round($this->raw_total / $this->num_people, 2);
     }
 }
