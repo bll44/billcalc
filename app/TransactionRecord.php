@@ -22,7 +22,7 @@ class TransactionRecord extends Model
         $this->calculateRawTotal();
         $this->save();
     }
-
+    
     public function split()
     {
         setlocale(LC_MONETARY, 'en_US');

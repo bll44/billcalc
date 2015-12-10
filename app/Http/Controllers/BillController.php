@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use View;
 use App\TransactionRecord;
+use DateTime;
 
 class BillController extends Controller
 {
@@ -19,8 +20,15 @@ class BillController extends Controller
      */
     public function index()
     {
-        $trans_history = TransactionRecord::all();
+        $trans_history = TransactionRecord::orderBy('created_at', 'DESC')->get();
+        $date = new DateTime('NOW');
+        // $formatted_date = $date->format('')
         return view('bill_processing.calculator', ['transaction_history' => $trans_history]);
+    }
+
+    public function addException()
+    {
+        return 'addException()';
     }
 
     /**

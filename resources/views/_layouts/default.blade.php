@@ -6,10 +6,9 @@
 <body>
 
 	@yield('styles')
-
 	@include('_layouts._navigation.default_nav')
 	<div class="container">
-
+		<h1>BillCalc</h1>
 		@yield('content')
 
 	</div>

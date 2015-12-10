@@ -17,6 +17,11 @@ body { padding-top: 40px; }
 #results-input-addon { font-size: 32pt; }
 #results-input-group { margin-top: 15px; }
 #trans-history-title { color: #00b5ff; margin-top: 20px; }
+#control-panel-container { margin-top: 20px; }
+#exceptions-control { margin-top: 15px; }
+#test-modal {
+	padding: 10px;
+}
 </style>
 @stop
 
@@ -28,7 +33,7 @@ body { padding-top: 40px; }
 		<div class="input-group">
 			<span class="input-group-addon">$</span>
 			{{-- <input type="text" name="verizon-bill" id="verizon-bill" class="form-control bill-amount" placeholder="0.00" data-key="verizon"> --}}
-			<input type="text" name="verizon-bill" id="verizon-bill" class="form-control bill-amount" value="175.83" data-key="verizon">
+			<input type="text" name="verizon-bill" id="verizon-bill" class="form-control bill-amount" value="0.00" data-key="verizon">
 		</div>
 		<button type="button" id="verizon-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="verizon-bill">Split Verizon Bill</button>
 	</fieldset>
@@ -37,7 +42,7 @@ body { padding-top: 40px; }
 		<div class="input-group">
 			<span class="input-group-addon">$</span>
 			{{-- <input type="text" name="gas-bill" id="gas-bill" class="form-control bill-amount" placeholder="0.00" data-key="gas"> --}}
-			<input type="text" name="gas-bill" id="gas-bill" class="form-control bill-amount" value="16.90" data-key="gas">
+			<input type="text" name="gas-bill" id="gas-bill" class="form-control bill-amount" value="0.00" data-key="gas">
 		</div>
 		<button type="button" id="gas-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="gas-bill">Split Gas Bill</button>
 	</fieldset>
@@ -46,7 +51,7 @@ body { padding-top: 40px; }
 		<div class="input-group">
 			<span class="input-group-addon">$</span>
 			{{-- <input type="text" name="water-bill" id="water-bill" class="form-control bill-amount" placeholder="0.00" data-key="water"> --}}
-			<input type="text" name="water-bill" id="water-bill" class="form-control bill-amount" value="67.84" data-key="water">
+			<input type="text" name="water-bill" id="water-bill" class="form-control bill-amount" value="0.00" data-key="water">
 		</div>
 		<button type="button" id="water-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="water-bill">Split Water Bill</button>
 	</fieldset>
@@ -55,7 +60,7 @@ body { padding-top: 40px; }
 		<div class="input-group">
 			<span class="input-group-addon">$</span>
 			{{-- <input type="text" name="electric-bill" id="electric-bill" class="form-control bill-amount" placeholder="0.00" data-key="electric"> --}}
-			<input type="text" name="electric-bill" id="electric-bill" class="form-control bill-amount" value="110.55" data-key="electric">
+			<input type="text" name="electric-bill" id="electric-bill" class="form-control bill-amount" value="0.00" data-key="electric">
 		</div>
 		<button type="button" id="electric-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="electric-bill">Split Electric Bill</button>
 	</fieldset>
@@ -74,15 +79,19 @@ body { padding-top: 40px; }
 <!-- /.row -->
 <!-- /#result-container -->
 <div class="row">
-	<fieldset class="col-lg-12 col-md-12">
-		<button type="button" class="btn btn-danger" id="calculate-amounts-btn">Split All Bills</button>
-		<button type="button" class="btn btn-default" id="clear-results-btn">Clear Results</button>
-		<button type="button" class="btn btn-warning" id="save-trans-btn">Save Transaction Details</button>
-	</fieldset>
-	<div class="input-group col-lg-12" id="results-input-group">
+	<div class="input-group col-lg-4" id="results-input-group">
 		<span class="input-group-addon" id="results-input-addon">$</span>
 		<input id="results-text-bucket" class="form-control" placeholder="0.00" disabled="true">
 	</div>
+	<div class="col-lg-8" id="exceptions-control">
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exceptionModal">Exception Handlng</button>
+		@include('bill_processing._partials.exception_modal')
+	</div>
+	<fieldset class="col-lg-12 col-md-12" id="control-panel-container">
+		<button type="button" class="btn btn-danger btn-sm control-btn" id="calculate-amounts-btn">Split All Bills</button>
+		<button type="button" class="btn btn-default btn-sm control-btn" id="clear-results-btn">Clear Results</button>
+		<button type="button" class="btn btn-warning btn-sm control-btn" id="save-trans-btn">Save Transaction Details</button>
+	</fieldset>
 </div>
 <!-- /.row -->
 
@@ -95,7 +104,7 @@ body { padding-top: 40px; }
 	<table class="table table-hover table-sm">
 		<thead>
 			<tr>
-				<th>#</th>
+				<th>Date</th>
 				<th>Verizon</th>
 				<th>Gas</th>
 				<th>Water</th>
@@ -106,10 +115,9 @@ body { padding-top: 40px; }
 			</tr>
 		</thead>
 		<tbody>
-			<?php $i = 1 ?>
 			@foreach($transaction_history as $trans)
 			<tr>
-				<td><strong>{{ $i }}</strong></td>
+				<td>{{ $trans->created_at }}</td>
 				<td>{{ $trans->vzw_amt }}</td>
 				<td>{{ $trans->gas_amt }}</td>
 				<td>{{ $trans->water_amt }}</td>
@@ -118,7 +126,6 @@ body { padding-top: 40px; }
 				<td>{{ $trans->split() }}</td>
 				<td>{{ $trans->raw_total }}</td>
 			</tr>
-			<?php $i++ ?>
 			@endforeach
 		</tbody>
 	</table>
@@ -193,13 +200,14 @@ function saveTransactionDetails() {
 	data.num_people = $('#num-persons').val();
 	var check_value = data.vzw_amt + data.gas_amt + data.water_amt + data.electric_amt;
 
-	// if total bills add up to 0 or less, there was probably an error
-	// and it should not be saved to the database
+	// if total bills add up to 0 or less, it should not be saved to the database
 	if(check_value <= 0) {
-		alert('Please check the values before attempting to save this transaction. Something seems off.');
+		alert('Check those values before attempting to save this transaction. Something seems off.');
+		$('#save-trans-btn').html('Save Transaction Details');
 		return false;
 	}
 	
+	// send data to be written to the database
 	$.ajax({
 		url: '{{ URL::to('transaction/store') }}',
 		type: 'GET',
@@ -207,6 +215,8 @@ function saveTransactionDetails() {
 		dataType: 'json',
 		success: function(data) {
 			if(data.status == 200) {
+				// if the transaction is logged successfully, reload the page
+				// this will pull in the latest Transaction History table
 				console.log('Transaction logged successfully');
 				location.reload();
 			}
@@ -216,6 +226,19 @@ function saveTransactionDetails() {
 
 $('#save-trans-btn').click(function() {
 	saveTransactionDetails();
+});
+
+// dynamic calculations testing
+$(document).ready(function() {
+	calculateTotalBill();
+});
+
+$('#num-persons').on('change', function() {
+	calculateTotalBill();
+});
+
+$('.bill-amount').focusout(function() {
+	calculateTotalBill();
 });
 
 </script>
