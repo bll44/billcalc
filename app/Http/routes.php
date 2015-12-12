@@ -11,5 +11,17 @@
 |
 */
 
+use App\TransactionRecord;
+
+Route::get('date_test', function()
+{
+	$transactions = TransactionRecord::orderBy('created_at', 'DESC')->get();
+	foreach($transactions as $t)
+	{
+		// echo $t->created_at . '<br />';
+		echo date('F d, Y H:i:s', strtotime($t->created_at)) . '<br />';
+	}
+});
+
 Route::get('/', 'BillController@index');
 Route::get('transaction/store', 'BillController@storeTransactionDetails');

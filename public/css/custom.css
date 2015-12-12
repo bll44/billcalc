@@ -1,0 +1,23 @@
+body { padding-top: 40px; }
+.split-btns { margin-top: 5px; }
+#calculate-amounts-btn { margin-top: 5px; }
+#temp-default-vals { color: #00b5ff; }
+#results-text-bucket { font-size: 32pt; width: 300px; }
+#num-persons { width: 100px; }
+#clear-results-btn { margin-top: 5px; }
+#clear-results-btn, #calculate-amounts-btn {
+	width: 150px;
+}
+.border-test { border: 1px solid green; }
+#results-input-addon { font-size: 32pt; }
+#results-input-group { margin-top: 15px; }
+#trans-history-title { color: #00b5ff; margin-top: 20px; }
+#control-panel-container { margin-top: 20px; }
+#exceptions-control { margin-top: 15px; }
+#test-modal {
+	padding: 10px;
+}
+
+#exception-description-set {
+	margin-top: 10px;
+}

@@ -21,7 +21,7 @@ class BillController extends Controller
     public function index()
     {
         $trans_history = TransactionRecord::orderBy('created_at', 'DESC')->get();
-        $date = new DateTime('NOW');
+        // $date = new DateTime('NOW');
         // $formatted_date = $date->format('')
         return view('bill_processing.calculator', ['transaction_history' => $trans_history]);
     }

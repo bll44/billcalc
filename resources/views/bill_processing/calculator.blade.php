@@ -3,25 +3,7 @@
 @section('styles')
 <style type="text/css">
 
-body { padding-top: 40px; }
-.split-btns { margin-top: 5px; }
-#calculate-amounts-btn { margin-top: 5px; }
-#temp-default-vals { color: #00b5ff; }
-#results-text-bucket { font-size: 32pt; width: 300px; }
-#num-persons { width: 100px; }
-#clear-results-btn { margin-top: 5px; }
-#clear-results-btn, #calculate-amounts-btn {
-	width: 150px;
-}
-.border-test { border: 1px solid green; }
-#results-input-addon { font-size: 32pt; }
-#results-input-group { margin-top: 15px; }
-#trans-history-title { color: #00b5ff; margin-top: 20px; }
-#control-panel-container { margin-top: 20px; }
-#exceptions-control { margin-top: 15px; }
-#test-modal {
-	padding: 10px;
-}
+
 </style>
 @stop
 
@@ -84,7 +66,7 @@ body { padding-top: 40px; }
 		<input id="results-text-bucket" class="form-control" placeholder="0.00" disabled="true">
 	</div>
 	<div class="col-lg-8" id="exceptions-control">
-		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exceptionModal">Exception Handlng</button>
+		<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exceptionModal">Manage Exceptions</button>
 		@include('bill_processing._partials.exception_modal')
 	</div>
 	<fieldset class="col-lg-12 col-md-12" id="control-panel-container">
@@ -118,6 +100,7 @@ body { padding-top: 40px; }
 			@foreach($transaction_history as $trans)
 			<tr>
 				<td>{{ $trans->created_at }}</td>
+				{{--<td>{{ date('F d, Y H:i:s', strtotime($trans->created_at)) }}</td>--}}
 				<td>{{ $trans->vzw_amt }}</td>
 				<td>{{ $trans->gas_amt }}</td>
 				<td>{{ $trans->water_amt }}</td>

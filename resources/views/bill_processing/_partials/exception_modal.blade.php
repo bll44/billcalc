@@ -8,35 +8,33 @@
 			<div class="modal-body">
 				<div class="container-fluid bd-example-row">
 					<div class="row">
-						<div class["col-md-12"]>
-							<label for="exception-name">Exception</label>
-							<input type="text" name="exception-name" id="exception-name" class="form-control">
-						</div>
-					</div>
-					<div class="row">
-						
-					</div>
-					<div class="row">v
-						<div class="col-md-6 col-md-offset-3">.col-md-6 .col-md-offset-3</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-9">
-							Level 1: .col-sm-9
+						<div class='col-md-12'>
 							<div class="row">
-								<div class="col-xs-8 col-sm-6">
-									Level 2: .col-xs-8 .col-sm-6
-								</div>
-								<div class="col-xs-4 col-sm-6">
-									Level 2: .col-xs-4 .col-sm-6
-								</div>
+								<fieldset class="col-md-8">
+									<label for="exception-name">Exception</label>
+									<input type="text" name="exception-name" id="exception-name" class="form-control input-sm" placeholder="Exception Identifier">
+								</fieldset>
+							</div>
+							<div class="row">
+								<fieldset class="col-md-12" id="exception-description-set">
+									<label for="exception-desc">Exception description</label>
+									<textarea class="form-control"></textarea>
+								</fieldset>
+							</div>
+							<div class="row">
+								<fieldset class="col-md-12">
+									<button type="button" class="btn-link">+ Add exception property</button>
+								</fieldset>
 							</div>
 						</div>
 					</div>
+					{{-- /.row --}}
 				</div>
+				{{-- /.container-fluid bd-example-row --}}
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary btn-sm">Save changes</button>
 			</div>
 		</div>
 	</div>
