@@ -10,7 +10,7 @@ class TransactionRecord extends Model
 
     private function calculateRawTotal()
     {
-        $this->raw_total = $this->vzw_amt + $this->gas_amt + $this->water_amt + $this->electric_amt;
+        $this->raw_total = $this->cable_amt + $this->gas_amt + $this->water_amt + $this->electric_amt;
     }
 
     public function createTransactionRecord($data)

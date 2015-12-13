@@ -8,16 +8,18 @@
 @stop
 
 @section('content')
+<h1>BillCalc</h1>
+
 <p id="temp-default-vals"><i><strong>Default values in inputs are temporary for testing</strong></i></p>
 <div class="row">
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
-		<label for="verizon-bill">Total Verizon Bill</label>
+		<label for="cable-bill">Total cable Bill</label>
 		<div class="input-group">
 			<span class="input-group-addon">$</span>
-			{{-- <input type="text" name="verizon-bill" id="verizon-bill" class="form-control bill-amount" placeholder="0.00" data-key="verizon"> --}}
-			<input type="text" name="verizon-bill" id="verizon-bill" class="form-control bill-amount" value="0.00" data-key="verizon">
+			{{-- <input type="text" name="cable-bill" id="cable-bill" class="form-control bill-amount" placeholder="0.00" data-key="cable"> --}}
+			<input type="text" name="cable-bill" id="cable-bill" class="form-control bill-amount" value="0.00" data-key="cable">
 		</div>
-		<button type="button" id="verizon-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="verizon-bill">Split Verizon Bill</button>
+		<button type="button" id="cable-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="cable-bill">Split cable Bill</button>
 	</fieldset>
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="gas-bill">Total Gas Bill</label>
@@ -65,17 +67,17 @@
 		<span class="input-group-addon" id="results-input-addon">$</span>
 		<input id="results-text-bucket" class="form-control" placeholder="0.00" disabled="true">
 	</div>
-	<div class="col-lg-8" id="exceptions-control">
-		<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exceptionModal">Manage Exceptions</button>
-		@include('bill_processing._partials.exception_modal')
-	</div>
-	<fieldset class="col-lg-12 col-md-12" id="control-panel-container">
+</div>
+{{-- /.row --}}
+
+<div class="row">
+	<div class="col-lg-12 col-md-12" id="control-panel-container">
 		<button type="button" class="btn btn-danger btn-sm control-btn" id="calculate-amounts-btn">Split All Bills</button>
 		<button type="button" class="btn btn-default btn-sm control-btn" id="clear-results-btn">Clear Results</button>
-		<button type="button" class="btn btn-warning btn-sm control-btn" id="save-trans-btn">Save Transaction Details</button>
-	</fieldset>
+		<button type="button" class="btn btn-warning btn-sm control-btn" id="save-trans-btn">Save Details</button>
+	</div>
 </div>
-<!-- /.row -->
+{{-- /.row --}}
 
 <!-- Transaction history -->
 <div class="row">
@@ -87,7 +89,7 @@
 		<thead>
 			<tr>
 				<th>Date</th>
-				<th>Verizon</th>
+				<th>Cable</th>
 				<th>Gas</th>
 				<th>Water</th>
 				<th>Electric</th>
@@ -101,7 +103,7 @@
 			<tr>
 				<td>{{ $trans->created_at }}</td>
 				{{--<td>{{ date('F d, Y H:i:s', strtotime($trans->created_at)) }}</td>--}}
-				<td>{{ $trans->vzw_amt }}</td>
+				<td>{{ $trans->cable_amt }}</td>
 				<td>{{ $trans->gas_amt }}</td>
 				<td>{{ $trans->water_amt }}</td>
 				<td>{{ $trans->electric_amt }}</td>
@@ -172,16 +174,16 @@ $('#clear-results-btn').click(function() { clearResults(); });
 
 function saveTransactionDetails() {
 	$('#save-trans-btn').html('<i class="fa fa-spin fa-circle-o-notch"></i>');
-	var vzw_amt, gas_amt, water_amt, num_persons,
+	var cable_amt, gas_amt, water_amt, num_persons,
 		electric_amt, raw_total, price_per;
 
 	var data = {};
-	data.vzw_amt = parseFloat($('#verizon-bill').val());
+	data.cable_amt = parseFloat($('#cable-bill').val());
 	data.gas_amt = parseFloat($('#gas-bill').val());
 	data.water_amt = parseFloat($('#water-bill').val());
 	data.electric_amt = parseFloat($('#electric-bill').val());
 	data.num_people = $('#num-persons').val();
-	var check_value = data.vzw_amt + data.gas_amt + data.water_amt + data.electric_amt;
+	var check_value = data.cable_amt + data.gas_amt + data.water_amt + data.electric_amt;
 
 	// if total bills add up to 0 or less, it should not be saved to the database
 	if(check_value <= 0) {

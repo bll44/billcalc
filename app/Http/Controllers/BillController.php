@@ -101,7 +101,7 @@ class BillController extends Controller
     {
         $tr = new TransactionRecord;
         $tr->createTransactionRecord([
-            'vzw_amt' => $request->vzw_amt,
+            'cable_amt' => $request->cable_amt,
             'gas_amt' => $request->gas_amt,
             'water_amt' => $request->water_amt,
             'electric_amt' => $request->electric_amt,

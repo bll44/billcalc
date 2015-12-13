@@ -6,9 +6,13 @@
 <body>
 
 	@yield('styles')
+
+	{{--@if(is_null($is_auth))--}}
 	@include('_layouts._navigation.default_nav')
+	{{--@endif--}}
+	
 	<div class="container">
-		<h1>BillCalc</h1>
+		
 		@yield('content')
 
 	</div>

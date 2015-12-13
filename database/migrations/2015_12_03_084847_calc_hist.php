@@ -14,7 +14,7 @@ class CalcHist extends Migration
     {
         Schema::create('calc_hist', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('vzw_amt', 10, 2);
+            $table->decimal('cable_amt', 10, 2);
             $table->decimal('gas_amt', 10, 2);
             $table->decimal('water_amt', 10, 2);
             $table->decimal('electric_amt', 10, 2);
