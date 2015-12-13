@@ -53,6 +53,12 @@
 							Access your Venmo friends list
 							</label>
 						</div>
+						<div class="row">
+							<label>
+							<input type="checkbox" id="venmo-perms-checkbox-select-all">
+							Select All
+							</label>
+						</div><!-- /.row -->
 					</div><!-- /.venmo-checkbox-container -->
 					<div class="row">
 						<h4>...on my behalf</h4>
@@ -90,6 +96,8 @@ $('.venmo-perms-checkbox').change(function() {
 	else if(scope.length <= 0) {
 		$('#venmo-auth-link').attr('disabled', 'disabled');
 	}
+
+	console.log(scope);
 });
 
 $('#venmo-auth-link').click(function(event) {
@@ -109,8 +117,23 @@ $('#venmo-auth-link').click(function(event) {
 	final_url += '&scope=' + scope;
 	final_url += '&response_type=' + response_type;
 
-	// stop the link from actually working for now
+	$('#venmo-auth-link').attr('href', final_url);
+	
 	if($(this).attr('disabled') == 'disabled') event.preventDefault();
 });
 
+$('#venmo-perms-checkbox-select-all').change(function() {
+	if($(this).is(':checked')) {
+		$('.venmo-perms-checkbox').each(function() {
+			$(this).click();
+		});
+	}
+	else if($(this).is(':not(:checked)')) {
+		$('.venmo-perms-checkbox').each(function() {
+			if($(this).is(':checked')) {
+				$(this).click();
+			}
+		});
+	}
+});
 </script>

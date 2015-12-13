@@ -17,6 +17,8 @@ class UsersTbl extends Migration
             $table->string('username');
             $table->string('password')->nullable();
             $table->string('name')->nullable();
+            $table->string('venmo_code')->nullable();
+            $table->integer('code_expiration')->nullable();
             $table->timestamps();
         });
     }

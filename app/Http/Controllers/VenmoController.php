@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class VenmoController extends Controller
 {
@@ -19,10 +20,32 @@ class VenmoController extends Controller
         //
     }
 
-    public function runOAuth(Request $request)
+    public function runOAuth(Request $request, User $user)
     {
-        $code = $request->input('code');
-        return $request->all();
+    	$venmo_code = $request->code;
+
+    	$url = 'https://api.venmo.com/v1/oauth/access_token';
+    	$ch = curl_init();
+    	$curl_config = array(
+    		CURLOPT_URL             => $url,
+    		CURLOPT_POST            => true,
+    		CURLOPT_RETURNTRANSFER  => true,
+    		CURLOPT_POSTFIELDS      => array(
+	    			'client_id'     => env('VENMO_APPID'),
+	    			'code'          => $venmo_code,
+	    			'client_secret' => env('VENMO_APP_SECRET'),
+    			)
+    		);
+    	curl_setopt_array($ch, $curl_config);
+    	$result = curl_exec($ch);
+    	curl_close($ch);
+
+    	$data = json_decode($result, true);
+
+    	$user->username = $data['user']['username'];
+    	$user->name = $data['user']['display_name'];
+    	$user->save();
+    	return $user;
     }
 
     /**
@@ -90,4 +113,4 @@ class VenmoController extends Controller
     {
         //
     }
-}
+ }
