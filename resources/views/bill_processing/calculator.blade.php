@@ -1,17 +1,7 @@
 @extends('_layouts.default')
 
-@section('styles')
-<style type="text/css">
-
-
-</style>
-@stop
-
 @section('content')
-<h1>BillCalc</h1>
-
-<p id="temp-default-vals"><i><strong>Default values in inputs are temporary for testing</strong></i></p>
-<div class="row">
+<div class="row first-row">
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="cable-bill">Total cable Bill</label>
 		<div class="input-group">
@@ -19,7 +9,7 @@
 			{{-- <input type="text" name="cable-bill" id="cable-bill" class="form-control bill-amount" placeholder="0.00" data-key="cable"> --}}
 			<input type="text" name="cable-bill" id="cable-bill" class="form-control bill-amount" value="0.00" data-key="cable">
 		</div>
-		<button type="button" id="cable-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="cable-bill">Split cable Bill</button>
+		<button type="button" id="cable-split-btn" class="btn btn-primary btn-block split-btns" data-bill-input-id="cable-bill">Split cable Bill</button>
 	</fieldset>
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="gas-bill">Total Gas Bill</label>
@@ -28,7 +18,7 @@
 			{{-- <input type="text" name="gas-bill" id="gas-bill" class="form-control bill-amount" placeholder="0.00" data-key="gas"> --}}
 			<input type="text" name="gas-bill" id="gas-bill" class="form-control bill-amount" value="0.00" data-key="gas">
 		</div>
-		<button type="button" id="gas-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="gas-bill">Split Gas Bill</button>
+		<button type="button" id="gas-split-btn" class="btn btn-primary btn-block split-btns" data-bill-input-id="gas-bill">Split Gas Bill</button>
 	</fieldset>
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="water-bill">Total Water Bill</label>
@@ -37,7 +27,7 @@
 			{{-- <input type="text" name="water-bill" id="water-bill" class="form-control bill-amount" placeholder="0.00" data-key="water"> --}}
 			<input type="text" name="water-bill" id="water-bill" class="form-control bill-amount" value="0.00" data-key="water">
 		</div>
-		<button type="button" id="water-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="water-bill">Split Water Bill</button>
+		<button type="button" id="water-split-btn" class="btn btn-primary btn-block split-btns" data-bill-input-id="water-bill">Split Water Bill</button>
 	</fieldset>
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="electric-bill">Total Electric Bill</label>
@@ -46,7 +36,7 @@
 			{{-- <input type="text" name="electric-bill" id="electric-bill" class="form-control bill-amount" placeholder="0.00" data-key="electric"> --}}
 			<input type="text" name="electric-bill" id="electric-bill" class="form-control bill-amount" value="0.00" data-key="electric">
 		</div>
-		<button type="button" id="electric-split-btn" class="btn btn-sm btn-primary btn-block split-btns" data-bill-input-id="electric-bill">Split Electric Bill</button>
+		<button type="button" id="electric-split-btn" class="btn btn-primary btn-block split-btns" data-bill-input-id="electric-bill">Split Electric Bill</button>
 	</fieldset>
 	<fieldset class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 		<label for="num-persons">Number of people</label>
@@ -63,18 +53,20 @@
 <!-- /.row -->
 <!-- /#result-container -->
 <div class="row">
-	<div class="input-group col-lg-4" id="results-input-group">
-		<span class="input-group-addon" id="results-input-addon">$</span>
-		<input id="results-text-bucket" class="form-control" placeholder="0.00" disabled="true">
+	<div class="col-lg-12">
+		<div class="input-group col-lg-4" id="results-input-group">
+			<span class="input-group-addon" id="results-input-addon">$</span>
+			<input id="results-text-bucket" class="form-control" placeholder="0.00">
+		</div>
 	</div>
 </div>
 {{-- /.row --}}
 
 <div class="row">
 	<div class="col-lg-12 col-md-12" id="control-panel-container">
-		<button type="button" class="btn btn-danger btn-sm control-btn" id="calculate-amounts-btn">Split All Bills</button>
-		<button type="button" class="btn btn-default btn-sm control-btn" id="clear-results-btn">Clear Results</button>
-		<button type="button" class="btn btn-warning btn-sm control-btn" id="save-trans-btn">Save Details</button>
+		<button type="button" class="btn btn-danger" id="calculate-amounts-btn">Split All Bills</button>
+		<button type="button" class="btn btn-default" id="clear-results-btn">Clear Results</button>
+		<button type="button" class="btn btn-warning" id="save-trans-btn">Save Details</button>
 	</div>
 </div>
 {{-- /.row --}}
@@ -82,7 +74,7 @@
 <!-- Transaction history -->
 <div class="row">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	<h5 id="trans-history-title"><strong>Transaction History</strong></h5>
+	<h3 id="trans-history-title"><strong>Transaction History</strong></h3>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="transaction-history-table-container">
 	<table class="table table-hover table-sm">
@@ -102,7 +94,6 @@
 			@foreach($transaction_history as $trans)
 			<tr>
 				<td>{{ $trans->created_at }}</td>
-				{{--<td>{{ date('F d, Y H:i:s', strtotime($trans->created_at)) }}</td>--}}
 				<td>{{ $trans->cable_amt }}</td>
 				<td>{{ $trans->gas_amt }}</td>
 				<td>{{ $trans->water_amt }}</td>
@@ -121,6 +112,8 @@
 </div>
 <!-- /.row -->
 @stop
+
+
 @section('scripts')
 <script type="text/javascript">
 
@@ -215,7 +208,7 @@ $('#save-trans-btn').click(function() {
 
 // dynamic calculations testing
 $(document).ready(function() {
-	calculateTotalBill();
+	// calculateTotalBill();
 });
 
 $('#num-persons').on('change', function() {

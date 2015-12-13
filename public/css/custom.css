@@ -1,5 +1,8 @@
-body { 
+/*body { 
 	padding-top: 40px; 
+}*/
+.first-row {
+	margin-top: 40px;
 }
 .split-btns { 
 	margin-top: 5px; 
@@ -10,9 +13,15 @@ body {
 #temp-default-vals { 
 	color: #00b5ff; 
 }
+#results-input-addon {
+	font-size: 32pt;
+}
 #results-text-bucket { 
-	font-size: 32pt; 
-	width: 300px; 
+	/*font-size: 32pt;*/
+	/*width: 300px;*/
+	font-size: 32pt;
+	line-height: 60px;
+	height: 60px;
 }
 #num-persons { 
 	width: 100px; 
@@ -20,18 +29,19 @@ body {
 #clear-results-btn { 
 	margin-top: 5px; 
 }
-#clear-results-btn, #calculate-amounts-btn {
+#clear-results-btn,
+#calculate-amounts-btn {
 	width: 150px;
 }
 .border-test { 
 	border: 1px solid green; 
 }
-#results-input-addon { 
+/*#results-input-addon { 
 	font-size: 32pt; 
-}
-#results-input-group { 
+}*/
+/*#results-input-group { 
 	margin-top: 15px; 
-}
+}*/
 #trans-history-title { 
 	color: #00b5ff; 
 	margin-top: 20px; 
@@ -45,4 +55,30 @@ body {
 
 #exception-description-set {
 	margin-top: 10px;
+}
+
+/* Nav styling */
+.navbar-brand {
+	font-size: 26pt;
+}
+.navbar-brand strong {
+	color: #6495ed;
+	font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+}
+#default-nav-left li a:link,
+#default-nav-right li a:link {
+	font-weight: bold;
+}
+#default-nav-left li ul li a:link,
+#default-nav-right li ul li a:link {
+	font-weight: normal;
+}
+#venmo-checkbox-container label {
+	font-weight: normal;
+}
+.venmo-blue {
+	color: #3D95CE;
+}
+.modal-body {
+	padding: 40px;
 }

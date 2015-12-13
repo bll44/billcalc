@@ -13,5 +13,8 @@
 
 Route::get('/', 'BillController@index');
 Route::get('transaction/store', 'BillController@storeTransactionDetails');
-Route::get('login', 'AuthController@login');
-Route::get('register', 'AuthController@register');
+
+Route::get('auth/login', 'Auth\AuthController@login');
+Route::get('auth/register', 'Auth\AuthController@register');
+
+Route::get('venmo/oauth', 'VenmoController@runOAuth');

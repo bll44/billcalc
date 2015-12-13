@@ -6,6 +6,7 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use View;
 
 class AuthController extends Controller
 {
@@ -60,5 +61,15 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function login()
+    {
+        return View::make('Auth.login');
+    }
+
+    public function register()
+    {
+        return View::make('Auth.register');
     }
 }

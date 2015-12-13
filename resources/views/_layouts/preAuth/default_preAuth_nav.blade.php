@@ -6,8 +6,6 @@
 <body>
 
 	@yield('styles')
-
-	@include('_layouts._navigation.default_nav')
 	
 	<div class="container">
 		
