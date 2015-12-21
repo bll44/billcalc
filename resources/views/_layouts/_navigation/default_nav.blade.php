@@ -24,7 +24,11 @@
       </form>
       <ul class="nav navbar-nav navbar-right" id="default-nav-right">
         <!-- <li><button type="button" class="btn btn-link" data-toggle="modal" data-target="#auth-modal">Login</button></li> -->
+        @if( ! session()->get('is_logged_in'))
         <li><a href="#" data-toggle="modal" data-target="#auth-modal">Login</a></li>
+        @else
+        <li><a href="#">{{ session()->get('auth_user')->display_name }}</a></li>
+        @endif
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">

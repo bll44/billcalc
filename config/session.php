@@ -31,7 +31,9 @@ return [
 
     'lifetime' => 120,
 
-    'expire_on_close' => false,
+    // set to true mainly for testing purposes
+    'expire_on_close' => true,
+    // 'expire_on_close' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +46,8 @@ return [
     |
     */
 
-    'encrypt' => false,
+    'encrypt' => true,
+    // 'encrypt' => false,
 
     /*
     |--------------------------------------------------------------------------

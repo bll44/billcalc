@@ -44,19 +44,11 @@
 	</fieldset>
 </div>
 <!-- /.row -->
-<!-- <div class="row">
-	<div id="result-container" class="col-lg-8 col-md-8 col-xs-12">
-		<input id="results-text-bucket" class="form-control" placeholder="Results...">
-		<textarea id="results-text-bucket" class="form-control" placeholder="Results will dipslay here..."></textarea>
-	</div>
-</div> -->
-<!-- /.row -->
-<!-- /#result-container -->
 <div class="row">
 	<div class="col-lg-12">
 		<div class="input-group col-lg-4" id="results-input-group">
 			<span class="input-group-addon" id="results-input-addon">$</span>
-			<input id="results-text-bucket" class="form-control" placeholder="0.00">
+			<input id="results-text-bucket" class="form-control" placeholder="0.00" disabled="disabled">
 		</div>
 	</div>
 </div>

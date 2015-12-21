@@ -1,0 +1,40 @@
+// var client_id, scope, response_type, final_url;
+// var base_url = 'https://api.venmo.com/v1/oauth/authorize?';
+// scope = new Array();
+// $('.venmo-perms-checkbox').change(function() {
+// 	if($(this).is(':checked')) {
+// 		if(scope.indexOf($(this).val()) == -1) {
+// 			scope.push($(this).val());
+// 		}
+// 	}
+// 	else if($(this).is(':not(:checked)')) {
+// 		var index = scope.indexOf($(this).val());
+// 		scope.splice(index, 1)
+// 	}
+// 	if(scope.length > 0) {
+// 		$('#venmo-auth-link').attr('disabled', false);
+// 	}
+// 	else if(scope.length <= 0) {
+// 		$('#venmo-auth-link').attr('disabled', 'disabled');
+// 	}
+
+// 	console.log(scope);
+// });
+
+$('#venmo-auth-link').click(function(event) {
+	// var base_url = 'https://api.venmo.com/v1/oauth/authorize?';
+	// var client_id, scope, response_type, final_url;
+	// client_id = 3303;
+	// scope = '';
+	// $('.venmo-perms-checkbox').each(function() {
+	// 	if(this.checked) scope += $(this).val() + '%20';
+	// });
+	// scope = scope.substring(0, scope.length - 3);
+	// response_type = 'code';
+
+	// final_url = '';
+	// final_url += base_url;
+	// final_url += 'client_id=' + client_id;
+	// final_url += '&scope=' + scope;
+	// final_url += '&response_type=' + response_type;
+});
