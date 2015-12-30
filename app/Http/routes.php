@@ -1,4 +1,9 @@
 <?php
+
+Route::get('session', function()
+{
+	return session()->all();
+});
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -16,3 +21,8 @@ Route::get('auth/login', 'Auth\AuthController@login');
 Route::get('auth/register', 'Auth\AuthController@register');
 
 Route::get('venmo/oauth', 'VenmoController@runOAuth');
+Route::get('venmo/logout', 'VenmoController@logout');
+
+Route::get('residences', 'ResidenceController@index');
+Route::get('residences/new', 'ResidenceController@create');
+Route::post('residences/store', 'ResidenceController@store');

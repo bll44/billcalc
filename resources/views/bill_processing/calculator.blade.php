@@ -167,11 +167,12 @@ function saveTransactionDetails() {
 	data.gas_amt = parseFloat($('#gas-bill').val());
 	data.water_amt = parseFloat($('#water-bill').val());
 	data.electric_amt = parseFloat($('#electric-bill').val());
+	data.raw_total = parseFloat(data.cable_amt + data.gas_amt + data.water_amt + data.electric_amt);
 	data.num_people = $('#num-persons').val();
-	var check_value = data.cable_amt + data.gas_amt + data.water_amt + data.electric_amt;
+	// var check_value = data.cable_amt + data.gas_amt + data.water_amt + data.electric_amt;
 
 	// if total bills add up to 0 or less, it should not be saved to the database
-	if(check_value <= 0) {
+	if(data.raw_total <= 0) {
 		alert('Check those values before attempting to save this transaction. Something seems off.');
 		$('#save-trans-btn').html('Save Transaction Details');
 		return false;
@@ -183,6 +184,14 @@ function saveTransactionDetails() {
 		type: 'GET',
 		data: data,
 		dataType: 'json',
+		statusCode: {
+			500: function() {
+				alert('500 internal server error when saving transaction details');
+			},
+			404: function() {
+				alert('error 404 - page no longer exists?');
+			}
+		},
 		success: function(data) {
 			if(data.status == 200) {
 				// if the transaction is logged successfully, reload the page

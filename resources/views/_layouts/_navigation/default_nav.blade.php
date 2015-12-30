@@ -15,6 +15,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav" id="default-nav-left">
         <li><a href="{{ URL::to('/') }}">Use Calculator</a></li>
+        <li><a href="{{ URL::to('residences') }}">Manage Residences</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
@@ -27,18 +28,20 @@
         @if( ! session()->get('is_logged_in'))
         <li><a href="#" data-toggle="modal" data-target="#auth-modal">Login</a></li>
         @else
-        <li><a href="#">{{ session()->get('auth_user')->display_name }}</a></li>
-        @endif
+        {{--<li><a href="#">{{ session()->get('auth_user')->display_name }}</a></li>--}}
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            {{ session()->get('auth_user')->display_name }} <span class="caret"></span>
+          </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            @if(session()->get('is_logged_in'))
+            <li><a href="{{ URL::to('venmo/logout') }}">Logout</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="#"><strong>${{ session()->get('auth_user')->balance }}</strong></a></li>
+            @endif
           </ul>
         </li>
+        @endif
       </ul>
     </div>
     <!-- /.navbar-collapse -->

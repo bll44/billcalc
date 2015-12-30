@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use View;
-use App\TransactionRecord;
-use DateTime;
+use App\Residence;
+use App\Resident;
 
-class BillController extends Controller
+class ResidenceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,15 +19,8 @@ class BillController extends Controller
      */
     public function index()
     {
-        $trans_history = TransactionRecord::orderBy('created_at', 'DESC')->get();
-        // $date = new DateTime('NOW');
-        // $formatted_date = $date->format('')
-        return view('bill_processing.calculator', ['transaction_history' => $trans_history]);
-    }
-
-    public function addException()
-    {
-        return 'addException()';
+        $residences = Resident::find(session()->get('auth_user')->id)->residences;
+        return View::make('residences.index', compact('residences'));
     }
 
     /**
@@ -38,7 +30,7 @@ class BillController extends Controller
      */
     public function create()
     {
-        //
+        return View::make('residences.add');
     }
 
     /**
@@ -47,9 +39,20 @@ class BillController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Residence $residence)
     {
-        //
+        // save newly created residence data
+        $residence->nickname = $request->nickname;
+        $residence->address = $request->address;
+        $residence->num_residents = $request->num_residents;
+        $residence->monthly_rent_total = $request->rent;
+        // save new residence to the database
+        $residence->save();
+        // insert relationship between authenticated user
+        // and the newly created residence
+        $residence->residents()->attach(session()->get('auth_user')->id);
+
+        return redirect('/');
     }
 
     /**
@@ -95,22 +98,5 @@ class BillController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function storeTransactionDetails(Request $request)
-    {
-        return $request->all();
-        /*
-        $tr = new TransactionRecord;
-        $tr->createTransactionRecord([
-            'cable_amt' => $request->cable_amt,
-            'gas_amt' => $request->gas_amt,
-            'water_amt' => $request->water_amt,
-            'electric_amt' => $request->electric_amt,
-            'raw_total' => 
-            'num_people' => $request->num_people
-        ]);
-        return response()->json(['status' => 200]);
-        */
     }
 }

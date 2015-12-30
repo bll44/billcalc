@@ -13,7 +13,7 @@ class CreateVenmoUsersTbl extends Migration
     public function up()
     {
         Schema::create('venmo_users', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->increments('id');
             $table->string('username');
             $table->string('email');
             $table->bigInteger('phone')->unsigned();
