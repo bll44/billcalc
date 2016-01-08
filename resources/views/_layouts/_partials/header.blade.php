@@ -16,7 +16,7 @@
 	{{-- jQuery 2.1.4 javascript library --}}
 	<script type="text/javascript" src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
 	{{-- Bootstrap 3.3.6 javascript library --}}
-	<script src="{{ asset('js/_bootstrap/npm.js') }}"></script>
+	{{--<script src="{{ asset('js/_bootstrap/npm.js') }}"></script>--}}
 	<script src="{{ asset('js/_bootstrap/bootstrap.min.js') }}"></script>
 	{{-- Foundation 6 javascript library --}}
 	{{--<script type="text/javascript" src="{{ asset('js/_foundation/app.js') }}"></script>--}}

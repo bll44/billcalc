@@ -52,7 +52,7 @@ class ResidenceController extends Controller
         // and the newly created residence
         $residence->residents()->attach(session()->get('auth_user')->id);
 
-        return redirect('/');
+        return redirect('residences');
     }
 
     /**
@@ -63,7 +63,9 @@ class ResidenceController extends Controller
      */
     public function show($id)
     {
-        //
+        $residence = Residence::find($id);
+        $members = $residence->residents;
+        return View::make('residences.show', compact('residence', 'members'));
     }
 
     /**

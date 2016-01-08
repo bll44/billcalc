@@ -15,6 +15,9 @@ Route::get('session', function()
 |
 */
 Route::get('/', 'BillController@index');
+Route::get('bills/manage', 'BillController@manage');
+Route::get('bills/view', 'BillController@view');
+Route::get('bills/month', 'BillController@getMonthlyBills');
 Route::get('transaction/store', 'BillController@storeTransactionDetails');
 
 Route::get('auth/login', 'Auth\AuthController@login');
@@ -26,3 +29,4 @@ Route::get('venmo/logout', 'VenmoController@logout');
 Route::get('residences', 'ResidenceController@index');
 Route::get('residences/new', 'ResidenceController@create');
 Route::post('residences/store', 'ResidenceController@store');
+Route::get('residences/{id}', 'ResidenceController@show');

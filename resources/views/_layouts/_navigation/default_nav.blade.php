@@ -16,6 +16,7 @@
       <ul class="nav navbar-nav" id="default-nav-left">
         <li><a href="{{ URL::to('/') }}">Use Calculator</a></li>
         <li><a href="{{ URL::to('residences') }}">Manage Residences</a></li>
+        <li><a href="{{ URL::to('bills/manage') }}">Manage Bills</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">

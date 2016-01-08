@@ -25,10 +25,8 @@ class Residence extends Model
         return $this->belongsToMany('App\Resident', 'resident_residence');
     }
 
-    public function saveWithUUID()
+    public function bills()
     {
-        $uuid = \DB::select('SELECT UUID_SHORT()');
-        $this->id = $uuid;
-        $this->save();
+        return $this->hasMany('App\Bill');
     }
 }

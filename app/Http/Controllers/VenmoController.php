@@ -48,7 +48,6 @@ class VenmoController extends Controller
 
         // user information returned from Venmo api
     	$data = json_decode($result, true);
-        
         $userdat =& $data['user'];
         $user->username = $userdat['username'];
         // if venmo username does not exist in database - save the user because they are new
@@ -57,7 +56,6 @@ class VenmoController extends Controller
             
             // save all returned user-venmo data to a user object fo
             // reference $data['user'] for sake of saving keystrokes
-            
             $user->email = $userdat['email'];
             $user->phone = (int)$userdat['phone'];
             $user->display_name = $userdat['display_name'];

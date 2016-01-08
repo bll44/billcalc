@@ -1,6 +1,7 @@
 @extends('_layouts.default')
 
 @section('content')
+<div class="well">
 <div class="row first-row">
 	<fieldset class="form-group col-md-2 col-sm-12 col-xs-12">
 		<label for="cable-bill">Total cable Bill</label>
@@ -62,7 +63,9 @@
 	</div>
 </div>
 {{-- /.row --}}
+</div><!-- /.well -->
 
+{{--
 <!-- Transaction history -->
 <div class="row">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -100,9 +103,9 @@
 <!-- / Transaction history table -->
 </div>
 <!-- / Transaction history table container -->
-
 </div>
 <!-- /.row -->
+--}}
 @stop
 
 
@@ -180,18 +183,10 @@ function saveTransactionDetails() {
 	
 	// send data to be written to the database
 	$.ajax({
-		url: '{{ URL::to('transaction/store') }}',
+		url: '{{ URL::to("transaction/store") }}',
 		type: 'GET',
 		data: data,
 		dataType: 'json',
-		statusCode: {
-			500: function() {
-				alert('500 internal server error when saving transaction details');
-			},
-			404: function() {
-				alert('error 404 - page no longer exists?');
-			}
-		},
 		success: function(data) {
 			if(data.status == 200) {
 				// if the transaction is logged successfully, reload the page

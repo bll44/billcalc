@@ -13,10 +13,12 @@
 		<div id="existing-residences-container">
 			<ul class="list-group">
 				@foreach($residences as $r)
-				<li class="list-group-item">
-					<p><strong>{{ $r->nickname }}</strong></p>
-					<p>{{ $r->address }}</p>
-				</li>
+				<a href="{{ URL::to('residences') . '/' . $r->id }}">
+					<li class="list-group-item">
+						<p><strong>{{ $r->nickname }}</strong></p>
+						<p>{{ $r->address }}</p>
+					</li>
+				</a>
 				@endforeach
 			</ul>
 		</div>
