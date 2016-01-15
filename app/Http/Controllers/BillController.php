@@ -22,32 +22,33 @@ class BillController extends Controller
      */
     public function index()
     {
-        $trans_history = TransactionRecord::orderBy('created_at', 'DESC')->get();
+    	$trans_history = TransactionRecord::orderBy('created_at', 'DESC')->get();
         // $date = new DateTime('NOW');
         // $formatted_date = $date->format('')
-        return view('bill_processing.calculator', ['transaction_history' => $trans_history]);
+    	return view('bill_processing.calculator', ['transaction_history' => $trans_history]);
     }
 
     public function manage()
     {
-        $resident = Resident::find(session()->get('auth_user')->id);
-        $residences = $resident->residences;
-        return view('bill_processing.manage', compact('residences'));
+    	$resident = Resident::find(session()->get('auth_user')->id);
+    	$residences = $resident->residences;
+    	return view('bill_processing.manage', compact('residences'));
     }
 
-    public function view(Request $request)
+    public function view(Request $http)
     {
-        $residence = Residence::find($request->residence);
-        $bills = $residence->bills;
-        return view('bill_processing.view', compact('bills', 'residence'));
+        return $http->residence;
+    	$residence = Residence::find($http->residence);
+    	$bills = $residence->bills;
+    	return view('bill_processing.view', compact('bills', 'residence'));
     }
 
     public function getMonthlyBills(Request $request)
     {
-        $bill = DB::select('SELECT * FROM bills WHERE month_of = ? 
-                           AND year_of = ? AND residence_id = ?', 
-                           [$request->month_of, $request->year_of, $request->residence])->get();
-        return json_encode($bill);
+    	$bill = DB::select('SELECT * FROM bills WHERE month_of = ? 
+    		AND year_of = ? AND residence_id = ?', 
+    		[$request->month_of, $request->year_of, $request->residence])->get();
+    	return json_encode($bill);
     }
 
     /**
@@ -118,15 +119,15 @@ class BillController extends Controller
 
     public function storeTransactionDetails(Request $request)
     {
-        $tr = new TransactionRecord;
-        $tr->createTransactionRecord([
-            'cable_amt' => $request->cable_amt,
-            'gas_amt' => $request->gas_amt,
-            'water_amt' => $request->water_amt,
-            'electric_amt' => $request->electric_amt,
-            'raw_total' => $request->raw_total,
-            'num_people' => $request->num_people,
-        ]);
-        return response()->json(['status' => 200]);
+    	$tr = new TransactionRecord;
+    	$tr->createTransactionRecord([
+    		'cable_amt' => $request->cable_amt,
+    		'gas_amt' => $request->gas_amt,
+    		'water_amt' => $request->water_amt,
+    		'electric_amt' => $request->electric_amt,
+    		'raw_total' => $request->raw_total,
+    		'num_people' => $request->num_people,
+    	]);
+    	return response()->json(['status' => 200]);
     }
 }

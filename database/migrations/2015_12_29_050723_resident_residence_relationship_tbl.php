@@ -14,8 +14,8 @@ class ResidentResidenceRelationshipTbl extends Migration
     {
         Schema::create('resident_residence', function (Blueprint $table) {
             $table->increments('id');
-            $table->uuid('resident_id');
-            $table->uuid('residence_id');
+            $table->integer('resident_id');
+            $table->integer('residence_id');
         });
     }
 

@@ -29,5 +29,7 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'venmo_auth' => \App\Http\Middleware\VenmoAuth::class,
+        // 'venmo_sandbox' => \App\Http\Middleware\VenmoSandbox::class,
     ];
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use View;
 use App\Residence;
 use App\Resident;
+use DB;
 
 class ResidenceController extends Controller
 {
@@ -68,6 +69,11 @@ class ResidenceController extends Controller
         return View::make('residences.show', compact('residence', 'members'));
     }
 
+    public function postAddResident(Request $http)
+    {
+        return $http->all();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -100,5 +106,15 @@ class ResidenceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function resident_search(Request $http)
+    {
+        $ss = $http->ss;
+        $values = [$ss, $ss, $ss];
+        $result = DB::select("SELECT * FROM calcdb.users WHERE username LIKE concat('%', ?, '%') OR 
+                                    email LIKE concat('%', ?, '%') OR display_name LIKE concat('%', ?, '%')
+                                    LIMIT 25", $values);
+        return json_encode($result);
     }
 }

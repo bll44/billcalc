@@ -12,6 +12,7 @@
 			</div><!-- /.modal-body -->
 			<div class="modal-footer">
 				<div id="venmo-auth-link-container">
+					<a href="{{ URL::to('auth/register') }}" class="pull-left">Sign up without Venmo</a>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<a href="#" id="venmo-auth-link" class="btn btn-primary" disabled="disabled">Log in with Venmo</a>
 				</div>

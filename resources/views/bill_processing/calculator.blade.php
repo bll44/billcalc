@@ -65,47 +65,6 @@
 {{-- /.row --}}
 </div><!-- /.well -->
 
-{{--
-<!-- Transaction history -->
-<div class="row">
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	<h3 id="trans-history-title"><strong>Transaction History</strong></h3>
-</div>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="transaction-history-table-container">
-	<table class="table table-hover table-sm">
-		<thead>
-			<tr>
-				<th>Date</th>
-				<th>Cable</th>
-				<th>Gas</th>
-				<th>Water</th>
-				<th>Electric</th>
-				<th>Split</th>
-				<th>Split amount</th>
-				<th>Raw amount</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($transaction_history as $trans)
-			<tr>
-				<td>{{ $trans->created_at }}</td>
-				<td>{{ $trans->cable_amt }}</td>
-				<td>{{ $trans->gas_amt }}</td>
-				<td>{{ $trans->water_amt }}</td>
-				<td>{{ $trans->electric_amt }}</td>
-				<td>{{ $trans->num_people }} way</td>
-				<td>{{ $trans->split() }}</td>
-				<td>{{ $trans->raw_total }}</td>
-			</tr>
-			@endforeach
-		</tbody>
-	</table>
-<!-- / Transaction history table -->
-</div>
-<!-- / Transaction history table container -->
-</div>
-<!-- /.row -->
---}}
 @stop
 
 

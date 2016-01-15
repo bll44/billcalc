@@ -17,14 +17,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var string
      */
-    protected $table = 'venmo_users';
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'username', 'email', 'password', 'display_name', 'phone', 'balance'];
 
     /**
      * The attributes excluded from the model's JSON form.
