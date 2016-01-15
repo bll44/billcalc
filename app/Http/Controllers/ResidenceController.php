@@ -21,7 +21,7 @@ class ResidenceController extends Controller
     public function index()
     {
         $residences = Resident::find(session()->get('auth_user')->id)->residences;
-        return View::make('residences.index', compact('residences'));
+        return View::make('residences.index', ['residences' => $residences]);
     }
 
     /**

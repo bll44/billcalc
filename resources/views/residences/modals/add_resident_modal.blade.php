@@ -7,7 +7,7 @@
 			</div>
 			<div class="modal-body">
 				<div>
-					<form id="add-resident-form" class="form-inline" method="post" action="{{ URL::to('residences/add_resident') }}">
+					<form id="add-resident-form" class="form-inline" method="post">
 						<div class="form-group">
 							<label for="multi-search">&nbsp;</label>
 							<input type="text" class="form-control" id="multi-search-input" placeholder="Name, Email, Username search" autocomplete="off">
@@ -29,9 +29,18 @@
 
 <script type="text/javascript">
 
-function addResident(element) {
-	console.log($(element));
-}
+$(document).on('click', '.add-resident-btn', function() {
+	console.log($(this).data('resident-identifier'));
+	console.log()
+	$.ajax({
+		url: '{{ URL::to(\'residences/add_resident\') }}',
+		type: 'POST',
+		data: {},
+		success: function(res) {
+			console.log(res);
+		};
+	});
+});
 
 function searchAvailableUsers() {
 	$('#search-results-container ul').html('');
@@ -43,13 +52,14 @@ function searchAvailableUsers() {
 		data: { ss: search_value },
 		dataType: 'json',
 		success: function(data) {
+			console.log('ajax callback function execution');
 			console.log(data);
 			console.log('Size: ' + data.length)
 			for(var i in data) {
 				$('#search-results-container ul')
-				.append('<li class="list-group-item" data-user-id="' + data[i].id + '">' 
+				.append('<li class="list-group-item" data-user-id="' + data[i].id + '">'
 					+ data[i].display_name + ' ('+data[i].username+', '+data[i].email+')'
-					+ '<a href="#" onclick="addResident($(this))" class="btn btn-success btn-sm pull-right">Add</a></li>');
+					+ '<a href="#" class="btn btn-success btn-sm pull-right add-resident-btn" data-resident-identifier="'+data[i].id+'">Add</a></li>');
 			}
 		}
 	});
@@ -64,5 +74,7 @@ $('#add-resident-form').submit(function(event) {
 $('#multi-search-btn').click(function() {
 	searchAvailableUsers();
 });
+
+
 
 </script>
