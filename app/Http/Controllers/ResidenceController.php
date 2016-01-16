@@ -65,13 +65,17 @@ class ResidenceController extends Controller
     public function show($id)
     {
         $residence = Residence::find($id);
-        $members = $residence->residents;
-        return View::make('residences.show', compact('residence', 'members'));
+        return View::make('residences.show', compact('residence'));
     }
 
     public function postAddResident(Request $http)
     {
-        return $http->all();
+        $resident = Resident::find($http->resident_id);
+        $residence = Residence::find($http->residence_id);
+
+        // Create relationship between residence and newly added resident
+        $residence->residents()->attach($resident->id);
+        return response()->json(['status' => 200]);
     }
 
     /**

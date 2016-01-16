@@ -21,5 +21,6 @@
 	{{-- Foundation 6 javascript library --}}
 	{{--<script type="text/javascript" src="{{ asset('js/_foundation/app.js') }}"></script>--}}
 	{{--<script type="text/javascript" src="{{ asset('js/_foundation/foundation.min.js') }}"></script>--}}
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>

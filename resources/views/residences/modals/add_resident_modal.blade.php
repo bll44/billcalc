@@ -29,18 +29,21 @@
 
 <script type="text/javascript">
 
-$(document).on('click', '.add-resident-btn', function() {
-	console.log($(this).data('resident-identifier'));
-	console.log()
-	$.ajax({
-		url: '{{ URL::to(\'residences/add_resident\') }}',
-		type: 'POST',
-		data: {},
-		success: function(res) {
-			console.log(res);
-		};
+function bindAddResidentLinks() {
+	$(document).on('click', '.add-resident-btn', function() {
+		var resident_id = $(this).data('resident-identifier');
+		var residence_id = $('meta[name="residence_id"]').attr('content');
+		$.ajax({
+			url: '{{ URL::to("residences/add_resident") }}',
+			method: 'POST',
+			data: { resident_id: resident_id, residence_id: residence_id },
+		}).done(function(data) {
+			if(data.status == 200) {
+				console.log('saved.');
+			}
+		});
 	});
-});
+}
 
 function searchAvailableUsers() {
 	$('#search-results-container ul').html('');
@@ -52,17 +55,18 @@ function searchAvailableUsers() {
 		data: { ss: search_value },
 		dataType: 'json',
 		success: function(data) {
-			console.log('ajax callback function execution');
-			console.log(data);
-			console.log('Size: ' + data.length)
+			console.log('Response size: ' + data.length)
 			for(var i in data) {
 				$('#search-results-container ul')
 				.append('<li class="list-group-item" data-user-id="' + data[i].id + '">'
-					+ data[i].display_name + ' ('+data[i].username+', '+data[i].email+')'
-					+ '<a href="#" class="btn btn-success btn-sm pull-right add-resident-btn" data-resident-identifier="'+data[i].id+'">Add</a></li>');
+				+ data[i].display_name + ' ('+data[i].username+', '+data[i].email+')'
+				+ '<a href="#" class="btn btn-success btn-sm pull-right add-resident-btn" data-resident-identifier="'+data[i].id+'">Add</a></li>');
 			}
 		}
 	});
+
+	// bind a response to clicking the Add button on a returned resident from search
+	bindAddResidentLinks();
 }
 
 $('#add-resident-form').submit(function(event) {
