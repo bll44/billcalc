@@ -17,9 +17,11 @@
 
 	@yield('scripts')
 	<script type="text/javascript">
+	console.log($('meta[name="csrf-token"]').attr('content'));
 	$(document).ready(function() {
+		var csrf_token = $('meta[name="csrf-token"]').attr('content');
 		$.ajaxSetup({
-			headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+			headers: { 'X-CSRF-TOKEN': csrf_token }
 		});
 	});
 	</script>

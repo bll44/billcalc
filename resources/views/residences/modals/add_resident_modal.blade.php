@@ -5,6 +5,12 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Add Resident</h4>
 			</div>
+			<form method="post" action="{{ URL::to('residences/add_resident') }}">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<input type="hidden" name="resident_id" value="55">
+				<input type="hidden" name="residence_id" value="1">
+				<input type="submit" value="Submit">
+			</form>
 			<div class="modal-body">
 				<div>
 					<form id="add-resident-form" class="form-inline" method="post">
@@ -33,13 +39,16 @@ function bindAddResidentLinks() {
 	$(document).on('click', '.add-resident-btn', function() {
 		var resident_id = $(this).data('resident-identifier');
 		var residence_id = $('meta[name="residence_id"]').attr('content');
+		console.log('resident id: ' + resident_id);
+		console.log('residence id: ' + residence_id);
 		$.ajax({
 			url: '{{ URL::to("residences/add_resident") }}',
 			method: 'POST',
-			data: { resident_id: resident_id, residence_id: residence_id },
+			data: { resident_id: resident_id, residence_id: residence_id }
 		}).done(function(data) {
 			if(data.status == 200) {
 				console.log('saved.');
+				console.log(data.query);
 			}
 		});
 	});

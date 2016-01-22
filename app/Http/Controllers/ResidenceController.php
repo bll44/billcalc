@@ -73,13 +73,12 @@ class ResidenceController extends Controller
         $resident = Resident::find($http->resident_id);
         $residence = Residence::find($http->residence_id);
 
-        $query = 'SELECT * FROM calcdb.resident_residence WHERE resident_id = :resident_id AND residence_id = :residence_id';
+        $query = 'select * from calcdb.resident_residence where resident_id = :resident_id and residence_id = :residence_id';
         $statement = DB::select($query, ['resident_id' => $resident->id, 'residence_id' => $residence_id]);
-        
 
         // Create relationship between residence and newly added resident
         $residence->residents()->attach($resident->id);
-        return response()->json(['status' => 200]);
+        return response()->json(['status' => 200, 'query' => $query]);
     }
 
     /**
