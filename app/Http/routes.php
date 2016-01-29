@@ -32,6 +32,8 @@ Route::group(['middleware' => 'venmo_auth'], function() {
 	Route::get('residences/{id}', 'ResidenceController@show');
 });
 
+Route::post('admin/add_user', 'AdminController@addUser');
+
 
 // Route::group(['middleware' => 'venmo_sandbox'], function() {
 // 	Route::get('venmo/sandbox/payment', 'SandboxController@makePayment');

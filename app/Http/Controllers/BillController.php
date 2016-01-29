@@ -23,8 +23,6 @@ class BillController extends Controller
     public function index()
     {
     	$trans_history = TransactionRecord::orderBy('created_at', 'DESC')->get();
-        // $date = new DateTime('NOW');
-        // $formatted_date = $date->format('')
     	return view('bill_processing.calculator', ['transaction_history' => $trans_history]);
     }
 
@@ -37,7 +35,7 @@ class BillController extends Controller
 
     public function view(Request $http)
     {
-        return $http->residence;
+        // return $http->residence;
     	$residence = Residence::find($http->residence);
     	$bills = $residence->bills;
     	return view('bill_processing.view', compact('bills', 'residence'));
