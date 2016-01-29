@@ -10,16 +10,15 @@
 	<div class="col-md-4">
 		<h3>{{ $residence->nickname }}</h3>
 		<h3>Residents</h3>
-		@foreach($residence->residents as $m)
-		<p>
-			{{ $m->display_name }}
-		</p>
+
+		<div class="list-group">
+		@foreach($residence->residents as $r)
+			<li class="list-group-item">{{ $r->display_name }}</li>
 		@endforeach
-		<p>
-			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addResidentModal">
+			<button type="button" class="list-group-item list-group-item-info" data-toggle="modal" data-target="#addResidentModal">
 				+ Add Resident
 			</button>
-		</p>
+		</div>
 	</div>
 	{{-- /.column --}}
 	<div class="col-md-8">

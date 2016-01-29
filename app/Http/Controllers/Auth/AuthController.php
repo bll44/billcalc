@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use View;
 use Illuminate\Http\Request;
+use App\Resident;
+use Auth;
 
 class AuthController extends Controller
 {
@@ -23,6 +25,7 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers;
+    protected $redirectPath = '/home/calc';
 
     /**
      * Create a new authentication controller instance.
@@ -46,6 +49,7 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'username' => 'required|max:255|unique:users',
+            'phone' => 'max:10',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -62,6 +66,7 @@ class AuthController extends Controller
             'display_name' => $data['name'],
             'username' => $data['username'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => bcrypt($data['password']),
         ]);
     }
@@ -71,23 +76,31 @@ class AuthController extends Controller
         return View::make('Auth.register');
     }
 
-    public function postRegister(Request $request)
+    public function postRegister(Resident $resident, Request $http)
     {
-        if($this->validator($user = $request->all())->passes())
+        if($this->validator($resident = $http->all())->passes())
         {
-            $this->create($user);
-            return 'user created';
+            $this->create($resident);
+            return redirect('/home/calc');
         }
-        return 0;
+        else
+        {
+            return redirect('auth/register');
+        }
     }
 
     public function getLogin()
     {
-        return View::make('Auth.login');
+        return view('Auth.login');
     }
 
-    public function postLogin()
+    public function postLogin(Request $http, User $user)
     {
-        return 'this is for actually logging in the user';
+        $username = $http->username;
+        $password = $http->password;
+        if(Auth::attempt(['username' => $username, 'password' => $password]))
+        {
+            return redirect()->intended('/home/calc');
+        }
     }
 }

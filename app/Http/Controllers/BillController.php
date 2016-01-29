@@ -12,6 +12,7 @@ use App\TransactionRecord;
 use DateTime;
 use App\Resident;
 use App\Residence;
+use Auth;
 
 class BillController extends Controller
 {
@@ -28,14 +29,13 @@ class BillController extends Controller
 
     public function manage()
     {
-    	$resident = Resident::find(session()->get('auth_user')->id);
+    	$resident = Resident::find(Auth::user()->id);
     	$residences = $resident->residences;
     	return view('bill_processing.manage', compact('residences'));
     }
 
     public function view(Request $http)
     {
-        // return $http->residence;
     	$residence = Residence::find($http->residence);
     	$bills = $residence->bills;
     	return view('bill_processing.view', compact('bills', 'residence'));
@@ -115,16 +115,16 @@ class BillController extends Controller
         //
     }
 
-    public function storeTransactionDetails(Request $request)
+    public function storeTransactionDetails(Request $http)
     {
     	$tr = new TransactionRecord;
     	$tr->createTransactionRecord([
-    		'cable_amt' => $request->cable_amt,
-    		'gas_amt' => $request->gas_amt,
-    		'water_amt' => $request->water_amt,
-    		'electric_amt' => $request->electric_amt,
-    		'raw_total' => $request->raw_total,
-    		'num_people' => $request->num_people,
+    		'cable_amt' => $http->cable_amt,
+    		'gas_amt' => $http->gas_amt,
+    		'water_amt' => $http->water_amt,
+    		'electric_amt' => $http->electric_amt,
+    		'raw_total' => $http->raw_total,
+    		'num_people' => $http->num_people,
     	]);
     	return response()->json(['status' => 200]);
     }

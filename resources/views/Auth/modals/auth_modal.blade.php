@@ -12,9 +12,15 @@
 			</div><!-- /.modal-body -->
 			<div class="modal-footer">
 				<div id="venmo-auth-link-container">
-					<a href="{{ URL::to('auth/register') }}" class="pull-left">Sign up without Venmo</a>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<a href="#" id="venmo-auth-link" class="btn btn-primary" disabled="disabled">Log in with Venmo</a>
+					<div>
+						<!-- <p><a href="{{ URL::to('auth/register') }}" class="pull-left">Sign up without Venmo</a></p> -->
+						<!-- <p><a href="{{ URL::to('auth/login') }}" class="pull-left">Login without Venmo</a></p> -->
+					</div>
+					<div>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<a href="#" id="venmo-auth-link" class="btn btn-primary">Log in with Venmo</a>
+						<a href="{{ URL::to('auth/login') }}" id="no-venmo-auth-link" class="btn btn-success">Log in with BillCalc <sup>&reg;</sup></a>
+					</div>
 				</div>
 			</div><!-- /.modal-footer -->
 		</div><!-- /.modal-content -->

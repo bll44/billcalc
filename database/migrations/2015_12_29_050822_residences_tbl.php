@@ -14,10 +14,14 @@ class ResidencesTbl extends Migration
     {
         Schema::create('residences', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('address');
+            $table->string('address1');
+            $table->string('address2');
+            $table->string('city');
+            $table->string('state');
+            $table->bigInteger('zipcode');
             $table->integer('num_residents');
             $table->string('nickname')->nullable();
-            $table->float('monthly_rent_total');
+            $table->float('monthly_rent');
             $table->timestamps();
         });
     }

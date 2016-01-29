@@ -10,6 +10,7 @@ use View;
 use App\Residence;
 use App\Resident;
 use DB;
+use Auth;
 
 class ResidenceController extends Controller
 {
@@ -20,7 +21,7 @@ class ResidenceController extends Controller
      */
     public function index()
     {
-        $residences = Resident::find(session()->get('auth_user')->id)->residences;
+        $residences = Resident::find(Auth::user()->id)->residences;
         return View::make('residences.index', ['residences' => $residences]);
     }
 
@@ -40,18 +41,23 @@ class ResidenceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Residence $residence)
+    public function store(Request $http, Residence $residence)
     {
         // save newly created residence data
-        $residence->nickname = $request->nickname;
-        $residence->address = $request->address;
-        $residence->num_residents = $request->num_residents;
-        $residence->monthly_rent_total = $request->rent;
+        $residence->nickname = $http->nickname;
+        $residence->address1 = $http->address1;
+        $residence->address2 = $http->address2;
+        $residence->city = $http->city;
+        $residence->state = $http->state;
+        $residence->zipcode = $http->zipcode;
+        $residence->num_residents = $http->num_residents;
+        $residence->monthly_rent = $http->rent;
+
         // save new residence to the database
         $residence->save();
         // insert relationship between authenticated user
         // and the newly created residence
-        $residence->residents()->attach(session()->get('auth_user')->id);
+        $residence->residents()->attach(Auth::user()->id);
 
         return redirect('residences');
     }
@@ -73,8 +79,8 @@ class ResidenceController extends Controller
         $resident = Resident::find($http->resident_id);
         $residence = Residence::find($http->residence_id);
 
-        $query = 'select * from calcdb.resident_residence where resident_id = :resident_id and residence_id = :residence_id';
-        $statement = DB::select($query, ['resident_id' => $resident->id, 'residence_id' => $residence_id]);
+        $query = 'select * from calcdb.resident_residence where resident_id = ? and residence_id = ?';
+        $statement = DB::select($query, array($resident->id, $residence->id));
 
         // Create relationship between residence and newly added resident
         $residence->residents()->attach($resident->id);

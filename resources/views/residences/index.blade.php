@@ -11,16 +11,15 @@
 	</div>
 	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 		<div id="existing-residences-container">
-			<ul class="list-group">
+			<div class="list-group">
 				@foreach($residences as $r)
-				<a href="{{ URL::to('residences') . '/' . $r->id }}">
-					<li class="list-group-item">
-						<p><strong>{{ $r->nickname }}</strong></p>
-						<p>{{ $r->address }}</p>
-					</li>
+				<a href="{{ URL::to('residences') . '/' . $r->id }}" class="list-group-item">
+					<p class="residence-list-item-title"><strong>{{ $r->nickname }}</strong></p>
+					<p>{{ $r->address1 . ', ' . $r->address2 }}</p>
+					<p>{{ $r->city . ', ' . $r->state . ' ' . $r->zipcode }}</p>
 				</a>
 				@endforeach
-			</ul>
+			</div>
 		</div>
 	</div>
 </div>

@@ -16,7 +16,7 @@ class VenmoAuth
     public function handle($request, Closure $next)
     {
         if( ! session()->get('is_logged_in'))
-            return redirect('/');
+            return redirect('/home/calc');
 
         return $next($request);
     }
