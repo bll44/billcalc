@@ -84,6 +84,9 @@ $('#addResidentModal').on('shown.bs.modal', function() {
 	$('#multi-search-input').focus();
 });
 
+$('.add-resident-btn').click(function() {
+	$(this).html('<i class="fa fa-spin fa-refresh"></i>');
+});
 
 </script>
 

@@ -94,3 +94,9 @@
 .residence-list-item-title {
 	color: #227ec3;
 }
+.clickable {
+	cursor: pointer;
+}
+.custom-hidden {
+	display: none;
+}

@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('account/manage/{username}', 'AccountController@show');
+	Route::post('account/update', 'AccountController@postUpdate');
 });
 
 Route::post('admin/add_user', 'AdminController@addUser');
