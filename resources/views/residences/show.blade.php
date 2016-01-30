@@ -15,7 +15,7 @@
 		@foreach($residence->residents as $r)
 			<li class="list-group-item">{{ $r->display_name }}</li>
 		@endforeach
-			<button type="button" class="list-group-item list-group-item-info" data-toggle="modal" data-target="#addResidentModal">
+			<button type="button" class="list-group-item list-group-item-success" data-toggle="modal" data-target="#addResidentModal">
 				+ Add Resident
 			</button>
 		</div>

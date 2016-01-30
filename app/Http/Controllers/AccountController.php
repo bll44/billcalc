@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class AccountController extends Controller
 {
@@ -48,7 +49,8 @@ class AccountController extends Controller
      */
     public function show($username)
     {
-        return $username;
+        $user = User::where('username', $username)->first();
+        return view('accounts.show', compact('user'));
     }
 
     /**

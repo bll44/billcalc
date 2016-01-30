@@ -127,7 +127,7 @@ class ResidenceController extends Controller
         $values = [$ss, $ss, $ss];
         $result = DB::select("SELECT * FROM calcdb.users WHERE username LIKE concat('%', ?, '%') OR 
                                     email LIKE concat('%', ?, '%') OR display_name LIKE concat('%', ?, '%')
-                                    LIMIT 25", $values);
+                                    LIMIT 12", $values);
         return json_encode($result);
     }
 }

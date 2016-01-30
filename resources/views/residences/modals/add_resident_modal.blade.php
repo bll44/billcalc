@@ -5,12 +5,6 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Add Resident</h4>
 			</div>
-{{-- 			<form method="post" action="{{ URL::to('residences/add_resident') }}">
-				<input type="hidden" name="_token" value="{{ csrf_token() }}">
-				<input type="hidden" name="resident_id" value="55">
-				<input type="hidden" name="residence_id" value="1">
-				<input type="submit" value="Submit">
-			</form> --}}
 			<div class="modal-body">
 				<div>
 					<form id="add-resident-form" class="form-inline" method="post">
@@ -67,7 +61,7 @@ function searchAvailableUsers() {
 				$('#search-results-container ul')
 				.append('<li class="list-group-item" data-user-id="' + data[i].id + '">'
 				+ data[i].display_name + ' ('+data[i].username+', '+data[i].email+')'
-				+ '<a href="#" class="btn btn-success btn-sm pull-right add-resident-btn" data-resident-identifier="'+data[i].id+'">Add</a></li>');
+				+ '<a class="btn btn-success btn-sm pull-right add-resident-btn" data-resident-identifier="'+data[i].id+'">Add</a></li>');
 			}
 		}
 	});
@@ -86,6 +80,13 @@ $('#multi-search-btn').click(function() {
 	searchAvailableUsers();
 });
 
+$('#addResidentModal').on('shown.bs.modal', function() {
+	$('#multi-search-input').focus();
+});
 
 
 </script>
+
+
+
+
