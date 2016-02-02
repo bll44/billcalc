@@ -25,28 +25,9 @@
 						<label for="phone">Phone</label>
 						<input type="text" name="phone" class="form-control" placeholder="Phone number" value="{{ $user->phone }}">
 					</div>
-
-					<input type="hidden" name="resetPassword" value="false">
-					<div class="form-group">
-						<button type="button" class="btn btn-danger btn-sm" id="password-reset-btn">Reset Password</button>
-						<p style="color: red"><i>* Currently does not work</i></p>
-					</div>
-					<div id="password-reset-fields" class="custom-hidden">
-						<div class="form-group">
-							<label for="old_password">Old Password</label>
-							<input type="text" name="old_password" class="form-control" placeholder="Old password">
-						</div>
-						<div class="form-group">
-							<label for="new_password">New Password</label>
-							<input type="text" name="new_password" class="form-control" placeholder="New password">
-						</div>
-						<div class="form-group">
-							<label for="confirm_new_password">Confirm New Password</label>
-							<input type="text" name="confirm_new_password" class="form-control" placeholder="Confirm new password">
-						</div>
-					</div>
 				</form>
 			</div>
+			{{-- /.modal-body --}}
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" id="submit-billcalc-form" class="btn btn-primary">Save changes</button>

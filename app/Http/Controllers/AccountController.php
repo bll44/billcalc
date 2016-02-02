@@ -8,6 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
+use Response;
+use Validator;
+use Hash;
 
 class AccountController extends Controller
 {
@@ -84,23 +87,34 @@ class AccountController extends Controller
         $user->username = $http->username;
         $user->email = $http->email;
         $user->phone = $http->phone;
-
-        // Password reset logic
-        if((bool) $http->resetPassword)
-        {
-            $rp = true;
-            $oldpass = $http->old_password;
-            $newpass = $http->new_password;
-            $confirmNewPass = $http->confirm_new_password;
-        }
-        else
-        {
-            $rp = false;
-        }
-
         $user->save();
 
         return redirect('account/manage/' . Auth::user()->username)->withMessage('Account successfully updated.');
+    }
+
+    public function postPasswordReset(Request $http)
+    {
+        $user = Auth::user();
+        if( ! Hash::check($http->old_password, $user->password))
+        {
+            return Response::json(['errorMessages' => array('Old password is not correct.')]);
+        }
+
+        $validator = Validator::make($http->all(), [
+            'old_password' => 'required',
+            'new_password' => 'required|min:6|confirmed'
+        ]);
+
+        if($validator->fails())
+        {
+            $messages = $validator->errors();
+            return Response::json(['errorMessages' => $messages->all()]);
+        }
+
+        $user->password = Hash::make($http->new_password);
+        $user->save();
+
+        return Response::json(['message' => 'Successfully changed password.']);
     }
 
     /**

@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Residence;
 
-class BillController extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,7 @@ class BillController extends Controller
      */
     public function index()
     {
-        $residences = Residence::all();
-        return view('bills.index', compact('residences'));
+        return view('home.index');
     }
 
     /**

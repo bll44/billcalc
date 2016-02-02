@@ -100,3 +100,9 @@
 .custom-hidden {
 	display: none;
 }
+#password-reset-edit-link {
+	cursor: pointer;
+}
+.large-input-label {
+	font-size: 19px;
+}

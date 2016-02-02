@@ -22,7 +22,7 @@ class Residence extends Model
 
     public function residents()
     {
-        return $this->belongsToMany('App\Resident', 'resident_residence');
+        return $this->belongsToMany('App\Resident');
     }
 
     public function bills()

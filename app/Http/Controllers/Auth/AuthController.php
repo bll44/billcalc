@@ -102,5 +102,7 @@ class AuthController extends Controller
         {
             return redirect()->intended('/home/calc');
         }
+        
+        return redirect('auth/login')->with('loginError', 'Login failed.');
     }
 }

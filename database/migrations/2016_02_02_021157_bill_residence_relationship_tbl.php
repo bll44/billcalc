@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ResidentResidenceRelationshipTbl extends Migration
+class BillResidenceRelationshipTbl extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class ResidentResidenceRelationshipTbl extends Migration
      */
     public function up()
     {
-        Schema::create('resident_residence', function (Blueprint $table) {
+        Schema::create('bill_residence', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('resident_id');
+            $table->integer('bill_id');
             $table->integer('residence_id');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,6 @@ class ResidentResidenceRelationshipTbl extends Migration
      */
     public function down()
     {
-        Schema::drop('resident_residence');
+        Schema::drop('bill_residence');
     }
 }

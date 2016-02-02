@@ -9,7 +9,7 @@ class Resident extends User
  
     public function residences()
     {
-    	return $this->belongsToMany('App\Residence', 'resident_residence');
+    	return $this->belongsToMany('App\Residence');
     }
 
 }

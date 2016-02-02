@@ -16,8 +16,8 @@
 			<ul class="nav navbar-nav" id="default-nav-left">
 				<li><a href="{{ URL::to('/calc') }}">Use Calculator</a></li>
 				@if(Auth::check())
-					<li><a href="{{ URL::to('residences') }}">Manage Residences</a></li>
-					<li><a href="{{ URL::to('bills/manage') }}">Manage Bills</a></li>
+					<li><a href="{{ URL::to('residences') }}">My Residences</a></li>
+					<li><a href="{{ URL::to('bills/manage') }}">My Bills</a></li>
 				@endif
 			</ul>
 			<form class="navbar-form navbar-left" role="search">

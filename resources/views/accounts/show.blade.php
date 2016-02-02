@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<td><strong>Password</strong></td>
-				<td>***********</td>
+				<td>***********&nbsp;<a id="password-reset-edit-link">Reset</a></td>
 			</tr>
 		</table>
 	</div>
@@ -66,6 +66,7 @@
 {{-- /.row --}}
 
 @include('accounts.modals.editBillCalcInfo')
+@include('accounts.modals.inAppPasswordReset')
 {{--@include('accounts.modals.editVenmoDetailsInfo')--}}
 
 @stop
@@ -81,6 +82,10 @@ $('#edit-account-info-trigger').click(function() {
 $('#venmo-account-details-trigger-refresh').click(function() {
 	alert('starts spinning and then does not stop for now');
 	$(this).addClass('fa-spin');
+});
+
+$('#password-reset-edit-link').click(function() {
+	$('#passwordResetModal').modal('show');
 });
 
 </script>
