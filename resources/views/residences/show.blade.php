@@ -3,6 +3,7 @@
 @section('content')
 
 @include('residences/modals/add_resident_modal')
+@include('residences/modals/proposeBill')
 <meta name="residence_id" content="{{ $residence->id }}">
 
 <h3>{{ $residence->nickname }}</h3>
@@ -26,8 +27,8 @@
 		{{--@foreach($residence->bills as $b)--}}
 			{{--<li class="list-group-item">{{ $b->name }}</li>--}}
 		{{--@endforeach--}}
-			<button type="button" class="list-group-item list-group-item-success" data-toggle="modal" data-target="#addBillModal">
-				+ Propose Bill
+			<button type="button" class="list-group-item list-group-item-warning" data-toggle="modal" data-target="#proposeBillModal">
+				+ Propose new residence bill
 			</button>
 		</div>
 		{{-- /.list-group --}}

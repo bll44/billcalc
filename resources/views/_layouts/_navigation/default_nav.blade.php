@@ -14,7 +14,6 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav" id="default-nav-left">
-				<li><a href="{{ URL::to('/calc') }}">Use Calculator</a></li>
 				@if(Auth::check())
 					<li><a href="{{ URL::to('residences') }}">My Residences</a></li>
 					<li><a href="{{ URL::to('bills/manage') }}">My Bills</a></li>

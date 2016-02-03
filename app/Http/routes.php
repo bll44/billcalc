@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('residences/{id}', 'ResidenceController@show');
 
 	// Residence Bill routes
-	
+
 });
 
 Route::group(['middleware' => 'auth'], function() {
@@ -36,10 +36,3 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('account/update', 'AccountController@postUpdate');
 	Route::post('account/password-reset', 'AccountController@postPasswordReset');
 });
-
-Route::post('admin/add_user', 'AdminController@addUser');
-
-
-// Route::group(['middleware' => 'venmo_sandbox'], function() {
-// 	Route::get('venmo/sandbox/payment', 'SandboxController@makePayment');
-// });
