@@ -14,6 +14,15 @@ class BillsTbl extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('resident_id');
+            $table->integer('residence_id');
+            $table->string('name');
+            $table->decimal('amount', 8, 2)->nullable();
+            $table->boolean('amount_varies')->default(0);
+            $table->text('vary_description', 150)->nullable();
+            $table->integer('due_day_code');
+            $table->integer('due_day_value')->nullable();
+            $table->boolean('active')->default(0);
             $table->timestamps();
         });
     }

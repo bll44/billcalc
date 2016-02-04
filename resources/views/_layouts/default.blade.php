@@ -16,14 +16,14 @@
 	</div>
 
 	@yield('scripts')
-	<script type="text/javascript">
-	$(document).ready(function() {
-		var csrf_token = $('meta[name="csrf-token"]').attr('content');
-		$.ajaxSetup({
-			headers: { 'X-CSRF-TOKEN': csrf_token }
-		});
+<script type="text/javascript">
+$(document).ready(function() {
+	var csrf_token = $('meta[name="csrf-token"]').attr('content');
+	$.ajaxSetup({
+		headers: { 'X-CSRF-TOKEN': csrf_token }
 	});
-	</script>
+});
+</script>
 </body>
 
 @include('_layouts._partials.footer')

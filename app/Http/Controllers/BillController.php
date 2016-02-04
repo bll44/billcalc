@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Residence;
+use App\Bill;
 
 class BillController extends Controller
 {
@@ -26,9 +27,10 @@ class BillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $residence = Residence::find($id);
+        return view('bills.create', compact('residence'));
     }
 
     /**
@@ -37,9 +39,21 @@ class BillController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $http, Bill $bill)
     {
-        //
+        return $http->all();
+        // $this->validate($http, [
+        //     'name' => 'required',
+        //     'vary_description' => 'max:150',
+        //     'due_day' => 'required',
+        // ]);
+
+        // $bill->resident_id = $http->resident_id;
+        // $bill->residence_id = $http->residence_id;
+        // $bill->name = $http->name;
+        // $bill->amount = $http->amount;
+
+
     }
 
     /**

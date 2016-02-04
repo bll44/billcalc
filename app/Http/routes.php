@@ -16,6 +16,8 @@ Route::get('venmo/logout', 'VenmoController@logout');
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('bills/manage', 'BillController@index');
+	Route::get('bills/residence/{residence_id}/create', 'BillController@create');
+	Route::post('bills/store', 'BillController@store');
 });
 
 Route::group(['middleware' => 'auth'], function() {
