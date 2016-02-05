@@ -2,7 +2,10 @@
 
 @section('content')
 
+<div class="row">
 <h4>Due Day Decodes</h4>
+
+</div>
 
 @stop
 

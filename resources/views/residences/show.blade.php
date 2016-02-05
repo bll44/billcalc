@@ -3,6 +3,7 @@
 @section('content')
 
 @include('residences/modals/add_resident_modal')
+@include('residences/modals/proposeBillModal')
 <meta name="residence_id" content="{{ $residence->id }}">
 
 <h3>{{ $residence->nickname }}</h3>
