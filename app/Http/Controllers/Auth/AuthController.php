@@ -105,4 +105,12 @@ class AuthController extends Controller
         
         return redirect('auth/login')->with('loginError', 'Login failed.');
     }
+
+    public function getLogout()
+    {
+        session()->flush();
+        Auth::logout();
+        session()->regenerate();
+        return redirect('/');
+    }
 }

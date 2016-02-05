@@ -71,7 +71,15 @@ class ResidenceController extends Controller
     public function show($id)
     {
         $residence = Residence::find($id);
-        return View::make('residences.show', compact('residence'));
+        $records = DB::select('select bill_id from bill_resident_approval where resident_id = ? and residence_id = ?', 
+                                        [Auth::user()->id, $residence->id]);
+        $approved_bills = array();
+        foreach($records as $r)
+        {
+            $approved_bills[] = $r->bill_id;
+        }
+        
+        return View::make('residences.show', compact('residence', 'approved_bills'));
     }
 
     public function postAddResident(Request $http)

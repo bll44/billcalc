@@ -106,3 +106,9 @@
 .large-input-label {
 	font-size: 19px;
 }
+#current-bills-container h3 small {
+	padding: 5px;
+}
+span.badge-approval {
+	cursor: pointer;
+}

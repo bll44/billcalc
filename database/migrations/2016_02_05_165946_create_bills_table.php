@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class BillsTbl extends Migration
+class CreateBillsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,10 +18,8 @@ class BillsTbl extends Migration
             $table->integer('residence_id');
             $table->string('name');
             $table->decimal('amount', 8, 2)->nullable();
-            $table->boolean('amount_varies')->default(0);
-            $table->text('vary_description', 150)->nullable();
-            $table->integer('due_day_code');
-            $table->boolean('active')->default(0);
+            $table->date('due_date');
+            $table->text('description');
             $table->timestamps();
         });
     }

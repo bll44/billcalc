@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGlobalDecodesTbl extends Migration
+class CreateBillResidentApprovalTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,11 @@ class CreateGlobalDecodesTbl extends Migration
      */
     public function up()
     {
-        Schema::create('global_decodes', function (Blueprint $table) {
-            $table->increments('id'); 
-            $table->string('cde');
-            $table->string('dcde');
-            $table->string('type');
+        Schema::create('bill_resident_approval', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('bill_id');
+            $table->integer('resident_id');
+            $table->integer('residence_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateGlobalDecodesTbl extends Migration
      */
     public function down()
     {
-        Schema::drop('global_decodes');
+        Schema::drop('bill_resident_approval');
     }
 }

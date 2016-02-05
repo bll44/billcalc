@@ -3,8 +3,7 @@
 @section('content')
 
 <div class="row">
-<h4>Due Day Decodes</h4>
-
+<h2>Admin home</h2>
 </div>
 
 @stop

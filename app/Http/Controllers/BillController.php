@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Residence;
 use App\Bill;
+use Auth;
+use DB;
 
 class BillController extends Controller
 {
@@ -18,7 +20,12 @@ class BillController extends Controller
      */
     public function index()
     {
-        $residences = Residence::all();
+        $resident = Resident::find(Auth::user()->id);
+        $residences = $resident->residences;
+        foreach($residences as $r)
+        {
+
+        }
         return view('bills.index', compact('residences'));
     }
 
@@ -41,22 +48,48 @@ class BillController extends Controller
      */
     public function store(Request $http, Bill $bill)
     {
-        return $http->all();
         $this->validate($http, [
-            'name' => 'required',
-            'vary_description' => 'max:150',
-            'due_day' => 'required',
+            'bill_name' => 'required',
+            'resident_id' => 'required',
+            'residence_id' => 'required',
+            'bill_due_date_month' => 'required',
+            'bill_due_date_year' => 'required',
         ]);
 
+        $bill->name = $http->bill_name;
         $bill->resident_id = $http->resident_id;
         $bill->residence_id = $http->residence_id;
-        $bill->name = $http->name;
-        $bill->amount = $http->amount;
-        if($http->has('amount_varies'))
+
+        if($http->has('bill_amount'))
         {
-            $bill->amount_varies = true;
+            $value = trim($http->bill_amount);
+            if($value != '')
+            {
+                $bill->amount = $value;
+            }
         }
-        $bill->due_day_code = $http->due_day_code;
+
+        $due_date = date($http->bill_due_date_year . '-' . $http->bill_due_date_month . '-28');
+        $bill->due_date = $due_date;
+        $bill->description = $http->bill_description;
+        $bill->save();
+        
+        // add an approval as the creator of the bill
+        $bill->approve();
+        // check if bill can become active
+        $bill->checkActiveState();
+
+        return redirect('residences/' . $http->residence_id);
+    }
+
+    public function approve($bill_id, Bill $bill)
+    {
+        $bill = Bill::find($bill_id);
+        // mark the bill as approved for the logged in user
+        $bill->approve();
+        // check if the bill can now become active
+        $bill->checkActiveState();
+        return redirect('residences/' . $bill->residence->id);
     }
 
     /**
@@ -67,7 +100,7 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        //
+        return Bill::find($id)->residence;
     }
 
     /**

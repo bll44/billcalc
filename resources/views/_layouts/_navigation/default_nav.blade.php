@@ -30,6 +30,9 @@
 					<li><a href="{{ URL::to('auth/login') }}">Login</a></li>
 					<li><a href="{{ URL::to('auth/register') }}">Register</a></li>
 				@else
+					@if(Auth::user()->admin)
+					<li><a href="{{ URL::to('admin') }}">Admin</a></li>
+					@endif
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 							{{ Auth::user()->display_name }} <span class="caret"></span>
@@ -37,7 +40,7 @@
 						<ul class="dropdown-menu">
 							@if(Auth::check())
 							<li><a href="{{ URL::to('account/manage') . '/' . Auth::user()->username }}">Manage Account</a></li>
-							<li><a href="{{ URL::to('venmo/logout') }}">Logout</a></li>
+							<li><a href="{{ URL::to('auth/logout') }}">Logout</a></li>
 							@endif
 						</ul>
 					</li>
