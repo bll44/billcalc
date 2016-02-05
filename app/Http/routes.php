@@ -1,5 +1,12 @@
 <?php
 
+Route::get('testnum', function() {
+	for($i = 0; $i <= 110; $i++)
+	{
+		echo str_pad($i, 3, '0', STR_PAD_LEFT).'<br/>';
+	}
+});
+
 /* Define a few routes for the home page */
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
@@ -37,4 +44,9 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('account/manage/{username}', 'AccountController@show');
 	Route::post('account/update', 'AccountController@postUpdate');
 	Route::post('account/password-reset', 'AccountController@postPasswordReset');
+});
+
+// Admin routes
+Route::group(['middleware' => 'auth'], function() {
+	Route::get('admin', 'AdminController@index');
 });

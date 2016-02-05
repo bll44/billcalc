@@ -46,10 +46,10 @@
 
 			<div class="form-group">
 				<label for="due_day" class="control-label">Due day of the month</label>
-				<select class="form-control" name="due_day">
-					<option value="1">Due at the end of each month</option>
-					<option value="2">Due on the 15th of each month</option>
-					<option value="3">Custom Day</option>
+				<select class="form-control" name="due_day_code">
+					<option value="EOM">Due at the end of each month</option>
+					<option value="MOM">Due on the 15th of each month</option>
+					<option value="CDOM">Custom Day</option>
 				</select>
 			</div>
 			<div class="form-group custom-hidden" id="day_of_month_container">

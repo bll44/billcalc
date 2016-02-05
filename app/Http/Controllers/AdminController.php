@@ -6,10 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Residence;
-use App\Bill;
 
-class BillController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +16,7 @@ class BillController extends Controller
      */
     public function index()
     {
-        $residences = Residence::all();
-        return view('bills.index', compact('residences'));
+        return view('admin.index');
     }
 
     /**
@@ -27,10 +24,9 @@ class BillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        $residence = Residence::find($id);
-        return view('bills.create', compact('residence'));
+        //
     }
 
     /**
@@ -39,24 +35,9 @@ class BillController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $http, Bill $bill)
+    public function store(Request $request)
     {
-        return $http->all();
-        $this->validate($http, [
-            'name' => 'required',
-            'vary_description' => 'max:150',
-            'due_day' => 'required',
-        ]);
-
-        $bill->resident_id = $http->resident_id;
-        $bill->residence_id = $http->residence_id;
-        $bill->name = $http->name;
-        $bill->amount = $http->amount;
-        if($http->has('amount_varies'))
-        {
-            $bill->amount_varies = true;
-        }
-        $bill->due_day_code = $http->due_day_code;
+        //
     }
 
     /**
