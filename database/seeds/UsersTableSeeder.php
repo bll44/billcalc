@@ -18,11 +18,56 @@ class UsersTableSeeder extends Seeder
         $now = date('Y-m-d H:i:s');
         DB::table('users')->insert([
             [
-                'username' => 'bradylatsha',
+                'username' => 'blatsha',
                 'email' => 'brady.latsha@gmail.com',
                 'password' => Hash::make('BLKr0ck6'),
                 'phone' => 7177567817, 
                 'display_name' => 'Brady Latsha', 
+                'balance' => null, 'v_id' => null, 
+                'access_token' => null,
+                'refresh_token' => null, 
+                'token_expire_date' => '0000-00-00 00:00:00', 
+                'created_at' => $now, 
+                'updated_at' => $now
+            ]
+        ]);
+        DB::table('users')->insert([
+            [
+                'username' => 'mhaberman',
+                'email' => 'michael.haberman@gmail.com',
+                'password' => Hash::make('test123'),
+                'phone' => 6178946435, 
+                'display_name' => 'Mike Haberman', 
+                'balance' => null, 'v_id' => null, 
+                'access_token' => null,
+                'refresh_token' => null, 
+                'token_expire_date' => '0000-00-00 00:00:00', 
+                'created_at' => $now, 
+                'updated_at' => $now
+            ]
+        ]);
+        DB::table('users')->insert([
+            [
+                'username' => 'aelias',
+                'email' => 'anthony.elias@gmail.com',
+                'password' => Hash::make('test123'),
+                'phone' => 4845426219, 
+                'display_name' => 'Anthony Elias', 
+                'balance' => null, 'v_id' => null, 
+                'access_token' => null,
+                'refresh_token' => null, 
+                'token_expire_date' => '0000-00-00 00:00:00', 
+                'created_at' => $now, 
+                'updated_at' => $now
+            ]
+        ]);
+        DB::table('users')->insert([
+            [
+                'username' => 'jdavis',
+                'email' => 'jim.patrick.davis@gmail.com',
+                'password' => Hash::make('test123'),
+                'phone' => 2159068347, 
+                'display_name' => 'Jim Davis', 
                 'balance' => null, 'v_id' => null, 
                 'access_token' => null,
                 'refresh_token' => null, 

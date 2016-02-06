@@ -27,11 +27,11 @@
 		<div class="list-group">
 		@foreach($residence->bills as $b)
 			@if( ! $b->active && ! in_array($b->id, $approved_bills))
-				<li class="list-group-item list-group-item-danger">
+				<li class="list-group-item text-danger">
 					{{ $b->name }} <a href="{{ URL::to('bills/approve/' . $b->id . '/' . $residence->id) }}" class="pull-right"><span class="badge badge-approval">Approve</span></a>
 				</li>
 			@elseif( ! $b->active && in_array($b->id, $approved_bills))
-				<li class="list-group-item list-group-item-danger">{{ $b->name }} <span class="badge">Already approved</span></li>
+				<li class="list-group-item text-danger">{{ $b->name }} <span class="badge">Already approved</span></li>
 			@else
 				<li class="list-group-item">{{ $b->name }} <span class="badge">Active</span></li>
 			@endif
@@ -42,7 +42,6 @@
 
 		</div>
 		{{-- /.list-group --}}
-		<p class="bg-danger text-danger"><span class="bg-danger text-danger">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> = bill not approved by all residents yet</p>
 	</div>
 	{{-- /.column --}}
 </div>
