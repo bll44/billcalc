@@ -27,7 +27,6 @@ class ResidenceTableSeeder extends Seeder
 	    		'created_at' => $now,
 	    		'updated_at' => $now,
     		],
-
      		[
     			'address1' => '536 N 34th Street',
 	    		'address2' => 'Apt 2',

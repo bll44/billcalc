@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Residence;
 use App\Bill;
+use App\Resident;
 use Auth;
 use DB;
 
@@ -22,11 +23,28 @@ class BillController extends Controller
     {
         $resident = Resident::find(Auth::user()->id);
         $residences = $resident->residences;
+        $bills = array();
         foreach($residences as $r)
         {
-
+            $rbs = $r->bills;
+            foreach($rbs as $rb)
+            {
+                $amount = is_null($rb->amount) ? '0.00' : $rb->amount;
+                $active = $rb->active ? 'Yes' : 'No';
+                $bill = array(
+                    'name' => $rb->name,
+                    'owner' => $rb->owner->display_name,
+                    'residence' => $rb->residence->nickname,
+                    'amount' => $amount,
+                    'due_date' => date('M dS'),
+                    'active_status' => $active,
+                    'description' => $rb->description,
+                );
+                $bills[] = $bill;
+            }
         }
-        return view('bills.index', compact('residences'));
+        return $bills;
+        return view('bills.index', compact('residences', 'bills'));
     }
 
     /**

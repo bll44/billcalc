@@ -1,7 +1,12 @@
 <?php
 
-Route::get('testnum', function() {
-	return redirect('home/calc');
+use App\User;
+use App\Resident;
+use App\Residence;
+use App\Bill;
+
+Route::get('billtest', function() {
+	$bill = Bill::find(1);
 });
 
 /* Define a few routes for the home page */

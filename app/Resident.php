@@ -12,4 +12,9 @@ class Resident extends User
     	return $this->belongsToMany('App\Residence');
     }
 
+    public function bills()
+    {
+    	return $this->hasMany('App\Bill');
+    }
+
 }

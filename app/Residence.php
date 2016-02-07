@@ -18,7 +18,9 @@ class Residence extends Model
      *
      * @var array
      */
-    protected $fillable = ['address', 'num_residents', 'nickname', 'monthly_rent_total'];
+    protected $fillable = ['address', 'address2', 'city', 'state', 
+                           'zipcode', 'num_residents', 'nickname', 
+                           'monthly_rent_total', 'created_at', 'updated_at'];
 
     public function residents()
     {

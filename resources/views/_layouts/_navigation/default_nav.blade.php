@@ -19,12 +19,12 @@
 					<li><a href="{{ URL::to('bills/manage') }}">My Bills</a></li>
 				@endif
 			</ul>
-			<form class="navbar-form navbar-left" role="search">
+			<!-- <form class="navbar-form navbar-left" role="search">
 				<div class="form-group">
 					<input type="text" class="form-control" id="global-search-input" placeholder="Search for anything">
 				</div>
 				<button type="submit" class="btn btn-default">Submit</button>
-			</form>
+			</form> -->
 			<ul class="nav navbar-nav navbar-right" id="default-nav-right">
 				@if( ! Auth::check())
 					<li><a href="{{ URL::to('auth/login') }}">Login</a></li>

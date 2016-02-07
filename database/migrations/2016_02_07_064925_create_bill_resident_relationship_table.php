@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class BillsTableAddActiveColumn extends Migration
+class CreateBillResidentRelationshipTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,11 @@ class BillsTableAddActiveColumn extends Migration
      */
     public function up()
     {
-        Schema::table('bills', function (Blueprint $table) {
-            $table->boolean('active')->default(0)->after('description');
+        Schema::create('bill_resident', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('bill_id');
+            $table->integer('resident_id');
+            $table->timestamps();
         });
     }
 
@@ -24,8 +27,6 @@ class BillsTableAddActiveColumn extends Migration
      */
     public function down()
     {
-        Schema::table('bills', function (Blueprint $table) {
-            $table->dropColumn('active');
-        });
+        Schema::drop('bill_resident');
     }
 }

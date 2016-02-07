@@ -25,6 +25,7 @@ class CreateUsersTbl extends Migration
             $table->string('refresh_token', 64)->nullable();
             $table->timestamp('token_expire_date')->nullable()->default('0000-00-00 00:00:00');
             $table->timestamps();
+            $table->boolean('admin')->default(0);
         });
     }
 

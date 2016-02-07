@@ -20,6 +20,7 @@ class CreateBillsTable extends Migration
             $table->decimal('amount', 8, 2)->nullable();
             $table->date('due_date');
             $table->text('description');
+            $table->boolean('active')->default(0);
             $table->timestamps();
         });
     }

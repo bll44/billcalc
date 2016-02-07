@@ -10,10 +10,24 @@ class Bill extends Model
 {
 	protected $table = 'bills';
 
+	protected $fillable = ['resident_id', 'residence_id', 'name', 
+								  'amount', 'due_date', 'description'];
+
 	public function residence()
 	{
 		return $this->belongsTo('App\Residence');
 	}
+
+	public function residents()
+	{
+		return $this->belongsToMany('App\Resident');
+	}
+
+	public function getOwner()
+	{
+		return Resident::find($this->resident_id);
+	}
+
 
 	public function checkActiveState()
 	{
