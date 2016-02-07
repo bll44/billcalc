@@ -6,7 +6,7 @@ use App\Residence;
 use App\Bill;
 
 Route::get('billtest', function() {
-	$bill = Bill::find(1);
+
 });
 
 /* Define a few routes for the home page */

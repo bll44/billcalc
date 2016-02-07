@@ -69,4 +69,15 @@ class Bill extends Model
 							values (?, ?, ?, ?, ?)',
 							[$this->id, $resident_id, $this->residence->id, $datetime_now, $datetime_now]);
 	}
+
+	// accepts the ID of the resident we are checking against
+	public function isPastDueForResident($id)
+	{
+		// Code
+	}
+
+	public function residentIsOwner($id)
+	{
+		return $id == $this->resident_id ? true : false;
+	}
 }

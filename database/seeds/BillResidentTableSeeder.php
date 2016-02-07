@@ -24,10 +24,10 @@ class BillResidentTableSeeder extends Seeder
 
 		DB::table('bill_resident')->insert([
 			['bill_id' => '1', 'resident_id' => $blatsha->id, 'created_at' => $now, 'updated_at' => $now],
-			['bill_id' => '1', 'resident_id' => $testuser000->id, 'created_at' => $now, 'updated_at' => $now],
-			['bill_id' => '1', 'resident_id' => $testuser001->id, 'created_at' => $now, 'updated_at' => $now],
 			['bill_id' => '2', 'resident_id' => $blatsha->id, 'created_at' => $now, 'updated_at' => $now],
+			['bill_id' => '1', 'resident_id' => $testuser000->id, 'created_at' => $now, 'updated_at' => $now],
 			['bill_id' => '2', 'resident_id' => $testuser000->id, 'created_at' => $now, 'updated_at' => $now],
+			['bill_id' => '1', 'resident_id' => $testuser001->id, 'created_at' => $now, 'updated_at' => $now],
 			['bill_id' => '2', 'resident_id' => $testuser001->id, 'created_at' => $now, 'updated_at' => $now],
 		]);
 	}

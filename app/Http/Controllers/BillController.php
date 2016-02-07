@@ -19,32 +19,12 @@ class BillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $http)
     {
+        // if($http->filter === '')
         $resident = Resident::find(Auth::user()->id);
-        $residences = $resident->residences;
-        $bills = array();
-        foreach($residences as $r)
-        {
-            $rbs = $r->bills;
-            foreach($rbs as $rb)
-            {
-                $amount = is_null($rb->amount) ? '0.00' : $rb->amount;
-                $active = $rb->active ? 'Yes' : 'No';
-                $bill = array(
-                    'name' => $rb->name,
-                    'owner' => $rb->owner->display_name,
-                    'residence' => $rb->residence->nickname,
-                    'amount' => $amount,
-                    'due_date' => date('M dS'),
-                    'active_status' => $active,
-                    'description' => $rb->description,
-                );
-                $bills[] = $bill;
-            }
-        }
-        return $bills;
-        return view('bills.index', compact('residences', 'bills'));
+        $bills = $resident->bills;
+        return view('bills.index', compact('bills'));
     }
 
     /**

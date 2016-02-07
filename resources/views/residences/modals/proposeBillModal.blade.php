@@ -13,7 +13,7 @@
 							<input type="hidden" name="resident_id" value="{{ Auth::user()->id }}">
 							<input type="hidden" name="residence_id" value="{{ $residence->id }}">
 							<div class="form-group">
-								<label for="resident_display" class="control-label">Resident owner of this bill</label>
+								<label for="resident_display" class="control-label">Owner of the new bill</label>
 								<input type="text" class="form-control" value="{{ Auth::user()->display_name }}" disabled="disabled">
 							</div>
 							<div class="form-group">
@@ -26,7 +26,7 @@
 							</div>
 							<div class="form-group">
 								<label for="bill_amount" class="control-label">Amount <small class="text-muted">(if static)*</small></label>
-								<input type="text" name="bill_amount" class="form-control" placeholder="Amount of bill if static">
+								<input type="text" name="bill_amount" class="form-control" placeholder="Amount of the bill if static">
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" id="not_static_checkbox"> Amount is not static for this bill

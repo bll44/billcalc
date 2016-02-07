@@ -14,7 +14,7 @@ class Resident extends User
 
     public function bills()
     {
-    	return $this->hasMany('App\Bill');
+    	return $this->belongsToMany('App\Bill');
     }
 
 }
